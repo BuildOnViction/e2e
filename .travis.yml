@@ -5,7 +5,9 @@ node_js: "10"
 jobs:
   include:
     - stage: Test
-      script: npm test
+      script:
+        - NODE_ENV=testnet npm test
+        - npm test
 
 stages:
   - name: Test

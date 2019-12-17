@@ -1,0 +1,8 @@
+{
+    "tomoscan": {
+        "uri": "https://scan.testnet.tomochain.com"
+    },
+    "tomomaster": {
+        "uri": "https://master.testnet.tomochain.com"
+    }
+}
