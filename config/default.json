@@ -10,5 +10,8 @@
     },
     "tomobridge": {
         "uri": "https://bridge.tomochain.com"
+    },
+    "tomowallet": {
+        "uri": "https://wallet.tomochain.com"
     }
 }
