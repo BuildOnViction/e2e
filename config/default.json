@@ -4,5 +4,11 @@
     },
     "tomomaster": {
         "uri": "https://master.tomochain.com"
+    },
+    "tomoissuer": {
+        "uri": "https://issuer.tomochain.com"
+    },
+    "tomobridge": {
+        "uri": "https://bridge.tomochain.com"
     }
 }

@@ -4,12 +4,17 @@ let should = chai.should()
 let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
+let uri = (config.tomomaster || {}).uri
+
+if (!uri) {
+    return
+}
 
 chai.use(chaiHttp)
 describe('TomoMaster', () => {
 	describe('/GET site', () => {
 		it('it should GET site', (done) => {
-            let url = urljoin(config.get('tomomaster.uri'))
+            let url = uri
 			chai.request(url)
 				.get('/')
 				.end((err, res) => {
@@ -22,7 +27,7 @@ describe('TomoMaster', () => {
 
 	describe('/GET masternodes', () => {
 		it('it should GET site', (done) => {
-            let url = urljoin(config.get('tomomaster.uri'), 'api/candidates/masternodes')
+            let url = urljoin(uri, 'api/candidates/masternodes')
 			chai.request(url)
 				.get('/')
 				.end((err, res) => {
@@ -35,7 +40,7 @@ describe('TomoMaster', () => {
 
 	describe('/GET crawler status', () => {
 		it('it should GET site', (done) => {
-            let url = urljoin(config.get('tomomaster.uri'), '/api/candidates/crawlStatus')
+            let url = urljoin(uri, '/api/candidates/crawlStatus')
 			chai.request(url)
 				.get('/')
 				.end((err, res) => {

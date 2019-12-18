@@ -4,5 +4,11 @@
     },
     "tomomaster": {
         "uri": "https://master.testnet.tomochain.com"
+    },
+    "tomoissuer": {
+        "uri": "https://issuer.testnet.tomochain.com"
+    },
+    "tomodex": {
+        "uri": "https://dex.testnet.tomochain.com"
     }
 }
