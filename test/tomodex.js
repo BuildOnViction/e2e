@@ -24,4 +24,30 @@ describe('TomoDex', () => {
 				})
 		})
 	})
+
+	describe('/GET trades', () => {
+		it('it should GET trades', (done) => {
+            let url = urljoin(uri, 'api/trades')
+			chai.request(url)
+				.get('')
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+					done()
+				})
+		})
+	})
+
+	describe('/GET pairs', () => {
+		it('it should GET trades', (done) => {
+            let url = urljoin(uri, 'api/pairs')
+			chai.request(url)
+				.get('')
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+					done()
+				})
+		})
+	})
 })

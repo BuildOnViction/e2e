@@ -24,4 +24,32 @@ describe('TomoBridge', () => {
 				})
 		})
 	})
+
+	describe('/GET deposit', () => {
+		it('it should deposit true', (done) => {
+            let url = urljoin(uri, '/api/deposit/monitor/status')
+			chai.request(url)
+				.get('')
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+                    res.body.status.should.equal(true)
+					done()
+				})
+		})
+	})
+
+	describe('/GET withdraw', () => {
+		it('it should withdraw true', (done) => {
+            let url = urljoin(uri, '/api/withdraw/monitor/status')
+			chai.request(url)
+				.get('')
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+                    res.body.status.should.equal(true)
+					done()
+				})
+		})
+	})
 })
