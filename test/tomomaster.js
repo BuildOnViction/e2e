@@ -26,7 +26,7 @@ describe('TomoMaster', () => {
 	})
 
 	describe('/GET masternodes', () => {
-		it('it should GET site', (done) => {
+		it('it should GET masternodes', (done) => {
             let url = urljoin(uri, 'api/candidates/masternodes')
 			chai.request(url)
 				.get('/')
@@ -39,7 +39,7 @@ describe('TomoMaster', () => {
 	})
 
 	describe('/GET crawler status', () => {
-		it('it should GET site', (done) => {
+		it('it should GET crawler status', (done) => {
             let url = urljoin(uri, '/api/candidates/crawlStatus')
 			chai.request(url)
 				.get('/')
