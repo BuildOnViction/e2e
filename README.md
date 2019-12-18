@@ -1,4 +1,4 @@
-## E2E Testing TomoChain products
+## E2E Tests for TomoChain products
 
 ### Use
 - NodeJS 10+
