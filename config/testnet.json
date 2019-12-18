@@ -10,5 +10,8 @@
     },
     "tomodex": {
         "uri": "https://dex.testnet.tomochain.com"
+    },
+    "rpc": {
+        "uri": "https://rpc.testnet.tomochain.com"
     }
 }

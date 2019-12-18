@@ -13,5 +13,11 @@
     },
     "tomowallet": {
         "uri": "https://wallet.tomochain.com"
+    },
+    "tomochain": {
+        "uri": "https://tomochain.com"
+    },
+    "rpc": {
+        "uri": "https://rpc.tomochain.com"
     }
 }
