@@ -25,4 +25,18 @@ describe('TomoChain RPC', () => {
 				})
 		})
 	})
+
+	describe('/GET proxystatus', () => {
+		it('it should GET proxystatus', (done) => {
+            let url = urljoin(uri, 'proxystatus')
+			chai.request(url)
+				.get('')
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+                    res.body.status.should.equal(true)
+					done()
+				})
+		})
+	})
 })
