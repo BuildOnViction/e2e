@@ -5,7 +5,7 @@ let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
 let uri = (config.tomomaster || {}).uri
-
+const SLASHED_NODES_THRESHOLD = 5
 if (!uri) {
     return
 }
@@ -50,4 +50,18 @@ describe('TomoMaster', () => {
 				})
 		})
 	})
+	describe('/GET slashedMNs', () => {
+		it('check number of slashedMNs', (done) => {
+            let url = urljoin(uri, '/api/candidates/slashedMNs')
+			chai.request(url)
+				.get('/')
+				.end((err, res) => {
+					res.should.have.status(200)
+                    expect(res.body.total).to.be.at.most(SLASHED_NODES_THRESHOLD, "too many slashedMNs")
+					done()
+				})
+		})
+	})
+
 })
+
