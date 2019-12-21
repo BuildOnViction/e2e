@@ -44,11 +44,13 @@ describe('TomoMaster', () => {
 				.get('/')
 				.end((err, res) => {
 					res.should.have.status(200)
+					res.should.be.json
 					res.body.should.be.equal(true)
 					done()
 				})
 		})
 	})
+
 	describe('/GET slashedMNs', () => {
 		it('check number of slashedMNs', (done) => {
                 let url = urljoin(uri, '/api/candidates/slashedMNs')
@@ -56,7 +58,21 @@ describe('TomoMaster', () => {
 				.get('/')
 				.end((err, res) => {
                     res.should.have.status(200)
-                    res.body.total.should.be.below(SLASHED_NODES_THRESHOLD, "too many slashed masternodes")
+					res.should.be.json
+                    res.body.total.should.be.below(SLASHED_NODES_THRESHOLD, 'too many slashed masternodes')
+                    done()
+				})
+		})
+	})
+
+	describe('/GET isMasternode', () => {
+		it('it should be masternode', (done) => {
+                let url = urljoin(uri, '/api/candidates/0x45b7bd987fa22c9bac89b71f0ded03f6e150ba31/isMasternode')
+			chai.request(url)
+				.get('/')
+				.end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.equal(1, 'it is not a masternode')
                     done()
 				})
 		})
