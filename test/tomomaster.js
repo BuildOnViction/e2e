@@ -1,7 +1,6 @@
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let should = chai.should()
-let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
 let uri = (config.tomomaster || {}).uri
@@ -45,7 +44,7 @@ describe('TomoMaster', () => {
 				.get('/')
 				.end((err, res) => {
 					res.should.have.status(200)
-					expect(res.body).to.equal(true)
+					res.body.should.be.equal(true)
 					done()
 				})
 		})
@@ -56,9 +55,9 @@ describe('TomoMaster', () => {
 			chai.request(url)
 				.get('/')
 				.end((err, res) => {
-					res.should.have.status(200)
-                                        expect(res.body.total).to.be.at.most(SLASHED_NODES_THRESHOLD, "too many slashed masternodes")
-					done()
+                    res.should.have.status(200)
+                    res.body.total.should.be.below(SLASHED_NODES_THRESHOLD, "too many slashed masternodes")
+                    done()
 				})
 		})
 	})
