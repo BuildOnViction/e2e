@@ -24,4 +24,17 @@ describe('TomoRelayer', () => {
 				})
 		})
 	})
+
+	describe('/GET public data', () => {
+		it('it should GET public data', (done) => {
+            let url = urljoin(uri, '/api/public')
+			chai.request(url)
+				.get('')
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+					done()
+				})
+		})
+	})
 })
