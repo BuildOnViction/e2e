@@ -6,5 +6,5 @@
 - Mocha
 
 ### Run
-Test run automaticaly every 5 minutes: https://travis-ci.org/tomochain/e2e/builds
+Tests run automatically every 5 minutes: https://travis-ci.org/tomochain/e2e/builds
 
