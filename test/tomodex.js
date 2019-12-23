@@ -4,6 +4,7 @@ let should = chai.should()
 let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
+let BigNumber = require('bignumber.js')
 let uri = (config.tomodex || {}).uri
 
 if (!uri) {
@@ -46,6 +47,29 @@ describe('TomoDex', () => {
 				.end((err, res) => {
 					res.should.have.status(200)
 					res.should.be.json
+					done()
+				})
+		})
+	})
+
+	describe('/GET orderbook', () => {
+		it('it should GET orderbook', (done) => {
+            let url = urljoin(uri, 'api/orderbook')
+			chai.request(url)
+				.get('')
+                .query({
+                    baseToken: config.get('tomodex.baseToken'),
+                    quoteToken: config.get('tomodex.quoteToken'),
+                })
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+                    if (res.body.data.bids.length > 0 && res.body.data.asks > 0) {
+                        let ask = new BigNumber(res.body.data.asks[0].pricepoint)
+                        let bid = new BigNumber(res.body.data.bids[0].pricepoint)
+                        let b = ask.isGreaterThanOrEqualTo(bid)
+                        expect(b).to.equal(true)
+                    }
 					done()
 				})
 		})

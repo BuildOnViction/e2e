@@ -66,12 +66,9 @@ describe('TomoMaster', () => {
 	})
 
 	describe('/GET isMasternode', () => {
-		it('it should be masternode', (done) => {
-                let address = '0x45b7bd987fa22c9bac89b71f0ded03f6e150ba31'
-		if (process.env.NODE_ENV === 'testnet') {
-		    address = '0xffc679dcdf444d2eeb0491a998e7902b411ccf20'
-		}	
-                let url = urljoin(uri, '/api/candidates/', address, 'isMasternode')
+        it('it should be masternode', (done) => {
+            let address = (config.tomomaster || {}).address
+            let url = urljoin(uri, '/api/candidates/', address, 'isMasternode')
 			chai.request(url)
 				.get('/')
 				.end((err, res) => {

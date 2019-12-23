@@ -3,7 +3,8 @@
         "uri": "https://scan.tomochain.com"
     },
     "tomomaster": {
-        "uri": "https://master.tomochain.com"
+        "uri": "https://master.tomochain.com",
+        "address": "0x45b7bd987fa22c9bac89b71f0ded03f6e150ba31"
     },
     "tomoissuer": {
         "uri": "https://issuer.tomochain.com"

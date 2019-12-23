@@ -1,0 +1,10 @@
+{
+    "tomodex": {
+        "uri": "https://dex.devnet.tomochain.com",
+        "baseToken": "0x0000000000000000000000000000000000000001",
+        "quoteToken": "0x4d7eA2cE949216D6b120f3AA10164173615A2b6C"
+    },
+    "tomorelayer": {
+        "uri": "https://relayer.devnet.tomochain.com"
+    }
+}

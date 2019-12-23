@@ -3,7 +3,11 @@ let chaiHttp = require('chai-http')
 let should = chai.should()
 let config = require('config')
 let urljoin = require('url-join')
-let uri = config.get('tomoscan.uri')
+let uri = (config.tomoscan || {}).uri
+
+if (!uri) {
+    return
+}
 
 chai.use(chaiHttp)
 describe('TomoScan', () => {

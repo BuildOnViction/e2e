@@ -7,7 +7,7 @@ jobs:
     - stage: Test
       script:
         - NODE_ENV=testnet npm test
-        - npm test
+        - NODE_ENV=mainnet npm test
 
 stages:
   - name: Test
