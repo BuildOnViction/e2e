@@ -6,7 +6,7 @@ let config = require('config')
 let urljoin = require('url-join')
 chai.use(chaiHttp)
 describe('DApp', () => {
-    let dapps = config.dapps
+    let dapps = config.dapps || []
     dapps.forEach(dapp => {
         describe(`/GET site ${dapp}`, () => {
             it('it should GET site', (done) => {
