@@ -66,7 +66,30 @@ describe('TomoDex', () => {
 				.end((err, res) => {
 					res.should.have.status(200)
 					res.should.be.json
-                    if (res.body.data.bids.length > 0 && res.body.data.asks > 0) {
+                    if ((res.body.data.bids.length > 0) && (res.body.data.asks.length > 0)) {
+                        let ask = new BigNumber(res.body.data.asks[0].pricepoint)
+                        let bid = new BigNumber(res.body.data.bids[0].pricepoint)
+                        let b = ask.isGreaterThanOrEqualTo(bid)
+                        expect(b).to.equal(true)
+                    }
+					done()
+				})
+		})
+	})
+
+	describe('/GET orderbookInDb', () => {
+		it('it should GET orderbookInDb', (done) => {
+            let url = urljoin(uri, 'api/orderbook/db')
+			chai.request(url)
+				.get('')
+                .query({
+                    baseToken: config.get('tomodex.baseToken'),
+                    quoteToken: config.get('tomodex.quoteToken'),
+                })
+				.end((err, res) => {
+					res.should.have.status(200)
+					res.should.be.json
+                    if (res.body.data.bids.length > 0 && res.body.data.asks.length > 0) {
                         let ask = new BigNumber(res.body.data.asks[0].pricepoint)
                         let bid = new BigNumber(res.body.data.bids[0].pricepoint)
                         let b = ask.isGreaterThanOrEqualTo(bid)
