@@ -79,6 +79,7 @@ describe('TomoDex', () => {
 
 	describe('/GET orderbookInDb', () => {
 		it('it should GET orderbookInDb', (done) => {
+            if (process.env.NODE_ENV !== 'devnet') return done()
             let url = urljoin(uri, 'api/orderbook/db')
 			chai.request(url)
 				.get('')
