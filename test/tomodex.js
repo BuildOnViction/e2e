@@ -66,12 +66,6 @@ describe('TomoDex', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    if ((res.body.data.bids.length > 0) && (res.body.data.asks.length > 0)) {
-                        let ask = new BigNumber(res.body.data.asks[0].pricepoint)
-                        let bid = new BigNumber(res.body.data.bids[0].pricepoint)
-                        let b = ask.isGreaterThanOrEqualTo(bid)
-                        expect(b).to.equal(true)
-                    }
                     done()
                 })
         })
