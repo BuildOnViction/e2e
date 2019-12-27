@@ -4,6 +4,8 @@ node_js: "10"
 
 jobs:
   include:
+    - stage: Lint
+      script: npm run lint
     - stage: Test
       script:
         - NODE_ENV=testnet npm test
@@ -11,4 +13,5 @@ jobs:
         - NODE_ENV=mainnet npm test
 
 stages:
+  - name: Lint
   - name: Test

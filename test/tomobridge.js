@@ -6,50 +6,50 @@ let config = require('config')
 let urljoin = require('url-join')
 let uri = (config.tomobridge || {}).uri
 
-if (!uri) {
-    return
-}
-
 chai.use(chaiHttp)
 describe('TomoBridge', () => {
-	describe('/GET site', () => {
-		it('it should GET site', (done) => {
+    if (!uri) {
+        return
+    }
+
+    describe('/GET site', () => {
+        it('it should GET site', (done) => {
             let url = uri
-			chai.request(url)
-				.get('/')
-				.end((err, res) => {
-					res.should.have.status(200)
-					res.should.be.html
-					done()
-				})
-		})
-	})
+            chai.request(url)
+                .get('/')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.html
+                    done()
+                })
+        })
+    })
 
-	describe('/GET deposit', () => {
-		it('it should deposit true', (done) => {
+    describe('/GET deposit', () => {
+        it('it should deposit true', (done) => {
             let url = urljoin(uri, '/api/deposit/monitor/status')
-			chai.request(url)
-				.get('')
-				.end((err, res) => {
-					res.should.have.status(200)
-					res.should.be.json
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
                     res.body.status.should.equal(true)
-					done()
-				})
-		})
-	})
+                    done()
+                })
+        })
+    })
 
-	describe('/GET withdraw', () => {
-		it('it should withdraw true', (done) => {
+    describe('/GET withdraw', () => {
+        it('it should withdraw true', (done) => {
             let url = urljoin(uri, '/api/withdraw/monitor/status')
-			chai.request(url)
-				.get('')
-				.end((err, res) => {
-					res.should.have.status(200)
-					res.should.be.json
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
                     res.body.status.should.equal(true)
-					done()
-				})
-		})
-	})
+                    done()
+                })
+        })
+    })
 })

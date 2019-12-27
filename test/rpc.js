@@ -6,37 +6,37 @@ let config = require('config')
 let urljoin = require('url-join')
 let uri = (config.rpc || {}).uri
 
-if (!uri) {
-    return
-}
-
 chai.use(chaiHttp)
 describe('TomoChain RPC', () => {
-	describe('/POST gasPrice', () => {
-		it('it should get gasPrice', (done) => {
-            let url = uri
-			chai.request(url)
-				.post('/')
-				.send({"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73})
-				.end((err, res) => {
-					res.should.have.status(200)
-					res.should.be.json
-					done()
-				})
-		})
-	})
+    if (!uri) {
+        return
+    }
 
-	describe('/GET proxystatus', () => {
-		it('it should GET proxystatus', (done) => {
+    describe('/POST gasPrice', () => {
+        it('it should get gasPrice', (done) => {
+            let url = uri
+            chai.request(url)
+                .post('/')
+                .send({ "jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73 })
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    done()
+                })
+        })
+    })
+
+    describe('/GET proxystatus', () => {
+        it('it should GET proxystatus', (done) => {
             let url = urljoin(uri, 'proxystatus')
-			chai.request(url)
-				.get('')
-				.end((err, res) => {
-					res.should.have.status(200)
-					res.should.be.json
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
                     res.body.status.should.equal(true)
-					done()
-				})
-		})
-	})
+                    done()
+                })
+        })
+    })
 })
