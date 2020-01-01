@@ -6,12 +6,18 @@ jobs:
   include:
     - stage: Lint
       script: npm run lint
-    - stage: Test
+    - stage: Test Devnet
+      script:
+        - NODE_ENV=devnet npm test
+    - stage: Test Testnet
       script:
         - NODE_ENV=testnet npm test
-        - NODE_ENV=devnet npm test
+    - stage: Test Mainnet
+      script:
         - NODE_ENV=mainnet npm test
 
 stages:
   - name: Lint
-  - name: Test
+  - name: Test Devnet
+  - name: Test Testnet
+  - name: Test Mainnet
