@@ -7,10 +7,9 @@ jobs:
     - stage: Lint
       script: npm run lint
     - stage: Test
-      script:
-        - NODE_ENV=devnet npm test
-        - NODE_ENV=testnet npm test
-        - NODE_ENV=mainnet npm test
+      script: NODE_ENV=devnet npm test
+      script: NODE_ENV=testnet npm test
+      script: NODE_ENV=mainnet npm test
 
 stages:
   - name: Lint
