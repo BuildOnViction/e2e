@@ -2,14 +2,18 @@ sudo: required
 language: node_js
 node_js: "10"
 
+env:
+  jobs:
+    - NODE_ENV=devnet
+    - NODE_ENV=testnet
+    - NODE_ENV=mainnet
+
 jobs:
   include:
     - stage: Lint
       script: npm run lint
     - stage: Test
-      script: NODE_ENV=devnet npm test
-      script: NODE_ENV=testnet npm test
-      script: NODE_ENV=mainnet npm test
+      script: npm test
 
 stages:
   - name: Lint
