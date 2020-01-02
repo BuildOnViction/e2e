@@ -3,7 +3,6 @@ language: node_js
 node_js: "10"
 
 env:
-  - NODE_ENV=devnet
   - NODE_ENV=testnet
   - NODE_ENV=mainnet
 
@@ -13,3 +12,7 @@ jobs:
       script: npm run lint
     - stage: Test
       script: npm test
+
+stages:
+  - name: Lint
+  - name: Test
