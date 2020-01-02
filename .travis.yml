@@ -9,9 +9,7 @@ jobs:
     - stage: Test
       script:
         - NODE_ENV=devnet npm test
-      script:
         - NODE_ENV=testnet npm test
-      script:
         - NODE_ENV=mainnet npm test
 
 stages:
