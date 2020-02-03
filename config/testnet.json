@@ -4,7 +4,9 @@
     },
     "tomomaster": {
         "uri": "https://master.testnet.tomochain.com",
-        "address": "0xffc679dcdf444d2eeb0491a998e7902b411ccf20"
+        "masternodes": [
+            "0xffc679dcdf444d2eeb0491a998e7902b411ccf20"
+        ]
     },
     "tomoissuer": {
         "uri": "https://issuer.testnet.tomochain.com"

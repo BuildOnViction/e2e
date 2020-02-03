@@ -67,15 +67,16 @@ describe('TomoMaster', () => {
 
     describe('/GET isMasternode', () => {
         it('it should be masternode', (done) => {
-            let address = (config.tomomaster || {}).address
-            let url = urljoin(uri, '/api/candidates/', address, 'isMasternode')
-            chai.request(url)
-                .get('/')
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.should.be.equal(1, 'it is not a masternode')
-                    done()
-                })
+            ((config.tomomaster || {}).masternodes || []).forEach((address) => {
+                let url = urljoin(uri, '/api/candidates/', address, 'isMasternode')
+                chai.request(url)
+                    .get('/')
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.body.should.be.equal(1, `${address} it is not a masternode`)
+                        done()
+                    })
+            })
         })
     })
 
