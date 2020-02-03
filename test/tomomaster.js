@@ -74,9 +74,9 @@ describe('TomoMaster', () => {
                     .end((err, res) => {
                         res.should.have.status(200)
                         res.body.should.be.equal(1, `${address} it is not a masternode`)
-                        done()
                     })
             })
+            done()
         })
     })
 
