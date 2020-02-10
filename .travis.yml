@@ -17,3 +17,6 @@ jobs:
 stages:
   - name: Lint
   - name: Test
+  
+notifications:
+  slack: tomochain:YQCECMKq7hDyjNgpPX721CqE
