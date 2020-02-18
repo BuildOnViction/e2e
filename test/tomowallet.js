@@ -27,6 +27,7 @@ describe('TomoWallet', () => {
     
     describe('/GET candidate', () => {
         it('it should GET site', (done) => {
+            if (process.env.NODE_ENV === 'testnet') return done()
             let url = urljoin(uri, 'api/candidates?limit=10&page=1')
             chai.request(url)
                 .get('/')
