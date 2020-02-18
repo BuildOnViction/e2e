@@ -13,8 +13,8 @@
     },
     "tomodex": {
         "uri": "https://dex.testnet.tomochain.com",
-        "baseToken": "0xc8c2c6a0516773379a58bf49ada7a721366be038",
-        "quoteToken": "0x0000000000000000000000000000000000000001"
+        "baseToken": "0x0000000000000000000000000000000000000001",
+        "quoteToken": "0x300cF046db91265B616DD134899ba150835dB488"
     },
     "tomorelayer": {
         "uri": "https://relayer.testnet.tomochain.com"
