@@ -26,6 +26,7 @@ describe('TomoChain RPC', () => {
         })
     })
 
+    /*
     describe('/GET proxystatus', () => {
         it('it should GET proxystatus', (done) => {
             let url = urljoin(uri, 'proxystatus')
@@ -39,4 +40,5 @@ describe('TomoChain RPC', () => {
                 })
         })
     })
+    */
 })
