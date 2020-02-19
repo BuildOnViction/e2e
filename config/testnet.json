@@ -12,9 +12,7 @@
         "uri": "https://issuer.testnet.tomochain.com"
     },
     "tomodex": {
-        "uri": "https://dex.testnet.tomochain.com",
-        "baseToken": "0x0000000000000000000000000000000000000001",
-        "quoteToken": "0x300cF046db91265B616DD134899ba150835dB488"
+        "uri": "https://dex.testnet.tomochain.com"
     },
     "tomorelayer": {
         "uri": "https://relayer.testnet.tomochain.com"

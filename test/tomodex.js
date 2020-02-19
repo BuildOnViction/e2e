@@ -61,7 +61,7 @@ describe('TomoDex', () => {
                             res.should.have.status(200)
                             res.should.be.json
                             let trades = res.body.data.trades
-                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(600)
+                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(600, `${p.baseTokenSymbol}/${p.quoteTokenSymbol}`)
                             return resolve()
                         })
                 })
@@ -73,48 +73,56 @@ describe('TomoDex', () => {
     describe('/GET orderbook', () => {
         it('it should GET orderbook', (done) => {
             let url = urljoin(uri, 'api/orderbook')
-            chai.request(url)
-                .get('')
-                .query({
-                    baseToken: config.get('tomodex.baseToken'),
-                    quoteToken: config.get('tomodex.quoteToken'),
+            let map = pairs.map((p) => {
+                return new Promise((resolve, reject) =>  {
+                    chai.request(url)
+                        .get('')
+                        .query({
+                            baseToken: p.baseTokenAddress,
+                            quoteToken: p.quoteTokenAddress
+                        })
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.should.be.json
+                            if ((res.body.data.bids.length > 0) && (res.body.data.asks.length > 0)) {	
+                                let ask = new BigNumber(res.body.data.asks[0].pricepoint)	
+                                let bid = new BigNumber(res.body.data.bids[0].pricepoint)	
+                                let b = ask.isGreaterThanOrEqualTo(bid)	
+                                expect(b).to.equal(true, `${p.baseTokenSymbol}/${p.quoteTokenSymbol} ask=${res.body.data.asks[0].pricepoint} bid=${res.body.data.bids[0].pricepoint}`) 
+                            }
+                            return resolve()
+                        })
                 })
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    if (process.env.NODE_ENV === 'devnet') return done()
-                    if ((res.body.data.bids.length > 0) && (res.body.data.asks.length > 0)) {	
-                        let ask = new BigNumber(res.body.data.asks[0].pricepoint)	
-                        let bid = new BigNumber(res.body.data.bids[0].pricepoint)	
-                        let b = ask.isGreaterThanOrEqualTo(bid)	
-                        expect(b).to.equal(true)	
-                    }
-                    done()
-                })
+            })
+            Promise.all(map).then(() => done())
         })
     })
 
     describe('/GET orderbookInDb', () => {
         it('it should GET orderbookInDb', (done) => {
-            if (process.env.NODE_ENV !== 'devnet') return done()
             let url = urljoin(uri, 'api/orderbook/db')
-            chai.request(url)
-                .get('')
-                .query({
-                    baseToken: config.get('tomodex.baseToken'),
-                    quoteToken: config.get('tomodex.quoteToken'),
+            let map = pairs.map((p) => {
+                return new Promise((resolve, reject) =>  {
+                    chai.request(url)
+                        .get('')
+                        .query({
+                            baseToken: p.baseTokenAddress,
+                            quoteToken: p.quoteTokenAddress
+                        })
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.should.be.json
+                            if (res.body.data.bids.length > 0 && res.body.data.asks.length > 0) {
+                                let ask = new BigNumber(res.body.data.asks[0].pricepoint)
+                                let bid = new BigNumber(res.body.data.bids[0].pricepoint)
+                                let b = ask.isGreaterThanOrEqualTo(bid)
+                                expect(b).to.equal(true, `${p.baseTokenSymbol}/${p.quoteTokenSymbol} ask=${res.body.data.asks[0].pricepoint} bid=${res.body.data.bids[0].pricepoint}`) 
+                            }
+                            return resolve()
+                        })
                 })
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    if (res.body.data.bids.length > 0 && res.body.data.asks.length > 0) {
-                        let ask = new BigNumber(res.body.data.asks[0].pricepoint)
-                        let bid = new BigNumber(res.body.data.bids[0].pricepoint)
-                        let b = ask.isGreaterThanOrEqualTo(bid)
-                        expect(b).to.equal(true)
-                    }
-                    done()
-                })
+            })
+            Promise.all(map).then(() => done())
         })
     })
 })
