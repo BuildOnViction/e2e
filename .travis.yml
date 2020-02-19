@@ -20,5 +20,7 @@ notifications:
     on_success: change
     on_failure: change
   email:
+    recipients:  
+    - thanhson1085@gmail.com
     on_success: change
     on_failure: change
