@@ -34,7 +34,7 @@ describe('TomoDex', () => {
             let url = urljoin(uri, 'api/trades')
             chai.request(url)
                 .get('')
-                .query({sortType: 'desc', sortBy: 'time'})
+                .query({ sortType: 'desc', sortBy: 'time' })
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
