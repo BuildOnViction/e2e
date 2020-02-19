@@ -6,6 +6,7 @@ let config = require('config')
 let urljoin = require('url-join')
 let BigNumber = require('bignumber.js')
 let uri = (config.tomodex || {}).uri
+let moment = require('moment')
 
 chai.use(chaiHttp)
 describe('TomoDex', () => {
@@ -33,9 +34,12 @@ describe('TomoDex', () => {
             let url = urljoin(uri, 'api/trades')
             chai.request(url)
                 .get('')
+                .query({sortType: 'desc', sortBy: 'time'})
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
+                    let trades = res.body.data.trades
+                    expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(300)
                     done()
                 })
         })
