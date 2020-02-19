@@ -7,6 +7,7 @@ let urljoin = require('url-join')
 let BigNumber = require('bignumber.js')
 let uri = (config.tomodex || {}).uri
 let moment = require('moment')
+let pairs = []
 
 chai.use(chaiHttp)
 describe('TomoDex', () => {
@@ -29,27 +30,6 @@ describe('TomoDex', () => {
         })
     })
 
-    describe('/GET trades', () => {
-        it('it should GET trades', (done) => {
-            let url = urljoin(uri, 'api/trades')
-            chai.request(url)
-                .get('')
-                .query({
-                    baseToken: config.get('tomodex.baseToken'),
-                    quoteToken: config.get('tomodex.quoteToken'),
-                    sortType: 'desc',
-                    sortBy: 'time'
-                })
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    let trades = res.body.data.trades
-                    expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(300)
-                    done()
-                })
-        })
-    })
-
     describe('/GET pairs', () => {
         it('it should GET trades', (done) => {
             let url = urljoin(uri, 'api/pairs')
@@ -58,8 +38,35 @@ describe('TomoDex', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
+                    pairs = res.body.data
                     done()
                 })
+        })
+    })
+
+    describe('/GET trades', () => {
+        it('it should GET trades', (done) => {
+            let url = urljoin(uri, 'api/trades')
+            let map = pairs.map((p) => {
+                return new Promise((resolve, reject) =>  {
+                    chai.request(url)
+                        .get('')
+                        .query({
+                            baseToken: p.baseTokenAddress,
+                            quoteToken: p.quoteTokenAddress,
+                            sortType: 'dec',
+                            sortBy: 'time'
+                        })
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.should.be.json
+                            let trades = res.body.data.trades
+                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(600)
+                            return resolve()
+                        })
+                })
+            })
+            Promise.all(map).then(() => done())
         })
     })
 
