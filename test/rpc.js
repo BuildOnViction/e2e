@@ -26,19 +26,21 @@ describe('TomoChain RPC', () => {
         })
     })
 
-    /*
-    describe('/GET proxystatus', () => {
-        it('it should GET proxystatus', (done) => {
-            let url = urljoin(uri, 'proxystatus')
+    describe('/POST getBlock', () => {
+        it('it should get getBlock', (done) => {
+            let url = uri
             chai.request(url)
-                .get('')
+                .post('/')
+                .send({ "jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest",false],"id":1 })
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    res.body.status.should.equal(true)
+                    let timestamp = parseInt(res.body.result.timestamp, 16)
+                    let delta = Math.floor(Date.now() / 1000) - timestamp
+                    expect(delta).to.below(120)
                     done()
                 })
         })
     })
-    */
+
 })
