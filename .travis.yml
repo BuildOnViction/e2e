@@ -12,6 +12,9 @@ jobs:
     script: npm run lint
   - stage: Test
     script: npm test
+    after_failure:
+    - 'curl -X POST --data-urlencode "payload={\"channel\": \"#alerts\", \"username\": \"Travis\", \"attachments\":[{\"fallback\":\"${NODE_ENV}\",\"pretext\":\"\",\"color\":\"danger\",\"fields\":[{\"title\":\"${NODE_ENV}\",\"value\":\"Test failed.\",\"short\":false}]}], \"icon_emoji\": \":male-construction-worker:\"}" $SLACK_ALERT_URL'
+
 stages:
 - name: Lint
 - name: Test
