@@ -12,8 +12,6 @@ jobs:
     script: npm run lint
   - stage: Test
     script: npm test
-    after_failure:
-    - 'curl -X POST --data-urlencode "payload={\"channel\": \"#alerts\", \"username\": \"Travis\", \"attachments\":[{\"fallback\":\"${NODE_ENV}\",\"pretext\":\"\",\"color\":\"danger\",\"fields\":[{\"title\":\"${NODE_ENV}\",\"value\":\"Test failed.\",\"short\":false}]}], \"icon_emoji\": \":male-construction-worker:\"}" $SLACK_ALERT_URL'
 
 stages:
 - name: Lint
@@ -28,3 +26,5 @@ notifications:
     - thanhson1085@gmail.com
     on_success: change
     on_failure: change
+    template:
+    - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result} %{message} in %{duration}"
