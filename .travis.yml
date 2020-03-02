@@ -12,7 +12,6 @@ jobs:
     script: npm run lint
   - stage: Test
     script: npm test
-
 stages:
 - name: Lint
 - name: Test
@@ -21,8 +20,6 @@ notifications:
     secure: ckORG9wIjCVRys+3aARP6KL7nEmrzTuo+FUHezixyIh77vVv01GXa4HDf19AoP6nCk2Dogf7NIu5FdqKkphDOEjQ/68tqx8bY9lXx09SPKaVU022Rb+3kwrdHu793C1tepB3A1RBquv/SJbeOyJSKCk65HHrqQPws6iITCGK1g+iwrI87NsC89m5KFx0qnh9dRHm0+/h7JXXkfyku86+Lh3A7n8QNAJhNeXEcvs+LTg7C4fbk0clZ57MVZkWuEJzwnGtcApX598h/EoUI65wz6F3kn4SHqD8OffeX81nJw0Ax6RhwSqZe22QpNPFqzPNNoi3IGB3k01EOcSc2EWpv6A9gLHL0k+OtLey4TATjs7Sfqx6I/oimnQQOujcZP5XaikaPRGoa87ZAh8AH/imDJVyczXfJOm1L2AGLoZzj2d1gyQX9mVDP7HIhg00mYVr7zChOL/QSgY2bbtFSSpugvjuebuWvEw+fDmyk8naOcT+tFKCQcR+UOrxw+EGJbkIocP8Wxteq9kh9GzVjKroti/dpHvUotWDv6f6h9615R8MIa0pUKQuRZC0XvRblik/pR7ANn2kJwp/Lt1+Nr2mFS8lTtTz8YYSE+G/LjsL6Gb6ABp0pHCotxw606NYlaK6TnMqt2rcxE2AZwyYM3yVxs7Jojjj0PrUIyKr/wrTJuA=
     on_success: change
     on_failure: change
-    template:
-    - "Build $NODE_ENV <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} %{result} %{message} in %{duration}"
   email:
     recipients:  
     - thanhson1085@gmail.com
