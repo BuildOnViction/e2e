@@ -27,4 +27,4 @@ notifications:
     on_success: change
     on_failure: change
     template:
-    - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result} %{message} in %{duration}"
+    - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} %{result} %{message} in %{duration}"
