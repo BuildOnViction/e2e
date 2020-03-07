@@ -3,7 +3,7 @@ language: node_js
 node_js: '10'
 env:
   jobs:
-  - NODE_ENV=devnet
+#  - NODE_ENV=devnet
   - NODE_ENV=testnet
   - NODE_ENV=mainnet
 jobs:
