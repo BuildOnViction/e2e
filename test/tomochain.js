@@ -23,4 +23,16 @@ describe('TomoChain website', () => {
                 })
         })
     })
+    describe('/GET get-tomox script', () => {
+        it('it should GET tomox script', (done) => {
+            let url = uri
+            chai.request(url)
+                .get('/get-tomox.sh')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.have.header('content-type', 'text/plain');
+                    done()
+                })
+        })
+    })
 })
