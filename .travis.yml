@@ -8,6 +8,7 @@ jobs:
     script: NODE_ENV=mainnet npm test
 stages:
 - name: Lint
+  if: NOT type IN (api, cron)
 - name: Test
   if: type IN (api, cron)
 notifications:
