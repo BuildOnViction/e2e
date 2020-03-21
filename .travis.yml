@@ -9,7 +9,7 @@ jobs:
     script: NODE_ENV=mainnet npm test
 stages:
 - name: Lint
-  if: type == push AND branch =~ ^v AND repo = tomochain/e2e
+  if: type != api AND branch =~ ^v AND repo = tomochain/e2e
 - name: Test
   if: type == api AND branch =~ ^v AND repo = tomochain/e2e
 notifications:
