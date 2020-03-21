@@ -61,7 +61,7 @@ describe('TomoDex', () => {
                             res.should.have.status(200)
                             res.should.be.json
                             let trades = res.body.data.trades
-                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(600, `${p.baseTokenSymbol}/${p.quoteTokenSymbol}`)
+                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol}`)
                             return resolve()
                         })
                 })

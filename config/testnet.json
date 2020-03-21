@@ -12,7 +12,8 @@
         "uri": "https://issuer.testnet.tomochain.com"
     },
     "tomodex": {
-        "uri": "https://dex.testnet.tomochain.com"
+        "uri": "https://dex.testnet.tomochain.com",
+        "duration": 10000
     },
     "tomorelayer": {
         "uri": "https://relayer.testnet.tomochain.com"
