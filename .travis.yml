@@ -1,20 +1,17 @@
 sudo: required
 language: node_js
 node_js: '10'
-env:
-  jobs:
- # - NODE_ENV=devnet
-  - NODE_ENV=testnet
-  - NODE_ENV=mainnet
 jobs:
   include:
   - stage: Lint
     script: npm run lint
   - stage: Test
-    script: npm test
+    script: NODE_ENV=mainnet npm test
 stages:
 - name: Lint
+  if: type == push AND branch =~ ^v AND repo = tomochain/e2e
 - name: Test
+  if: type == api AND branch =~ ^v AND repo = tomochain/e2e
 notifications:
   slack:
     secure: ckORG9wIjCVRys+3aARP6KL7nEmrzTuo+FUHezixyIh77vVv01GXa4HDf19AoP6nCk2Dogf7NIu5FdqKkphDOEjQ/68tqx8bY9lXx09SPKaVU022Rb+3kwrdHu793C1tepB3A1RBquv/SJbeOyJSKCk65HHrqQPws6iITCGK1g+iwrI87NsC89m5KFx0qnh9dRHm0+/h7JXXkfyku86+Lh3A7n8QNAJhNeXEcvs+LTg7C4fbk0clZ57MVZkWuEJzwnGtcApX598h/EoUI65wz6F3kn4SHqD8OffeX81nJw0Ax6RhwSqZe22QpNPFqzPNNoi3IGB3k01EOcSc2EWpv6A9gLHL0k+OtLey4TATjs7Sfqx6I/oimnQQOujcZP5XaikaPRGoa87ZAh8AH/imDJVyczXfJOm1L2AGLoZzj2d1gyQX9mVDP7HIhg00mYVr7zChOL/QSgY2bbtFSSpugvjuebuWvEw+fDmyk8naOcT+tFKCQcR+UOrxw+EGJbkIocP8Wxteq9kh9GzVjKroti/dpHvUotWDv6f6h9615R8MIa0pUKQuRZC0XvRblik/pR7ANn2kJwp/Lt1+Nr2mFS8lTtTz8YYSE+G/LjsL6Gb6ABp0pHCotxw606NYlaK6TnMqt2rcxE2AZwyYM3yVxs7Jojjj0PrUIyKr/wrTJuA=
