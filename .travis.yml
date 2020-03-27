@@ -16,7 +16,6 @@ notifications:
     secure: UBDf3O2lzaULpIfTyYCz282jYy4xOwNNiOVMgpsQeflk9UtXSTDBWFjZjUyWZpWvdDTcVHhKF71Yvpd1k7eqAwvyaaLlZkpogIp4NS6QD0eNNDIKmAfTOgK3wkSjKegik7fkXYKDERflKlsmw5In2PYTKw7ZW6FT1y0+9ewiu8j/90eXzPnMTAmm+4ixxlQiuL/ZYJDwLEeXqPkOEqCftxdkrx0qIv0xg7+zntlxaXuB3BJ7AB9OXxvJ8eTXq3qDnW+x5TYOp74baxJdyHAPCFhhyuuRtGg0Q9tWNhMJVuZWrFMHUDMB3UPQdK6hrSq8bs/mivSbrsefm3ltLnIp7GpNVdodKZR8Himx6WisFBDEf1p37A/xqLc3+ECdz78+aL9aBJsustPjVHiVlre0QxYIUvrFzxxn+AUFSfyaFPhd+yXVmL4YSb4tZQZ1RPezsKcBiLMuNYtrozwebejDh9qAJDdNb6IjP1qRKDz1nV0vxTkdcvvGDS2hUkVXtAlI5iRuAd3RetEg7rVQb1w8vN9brTJ/3sn22PxFYw3gqBWdypAYuLjoEUBMrTBkecJ9NvlzkUXbG20LNsaiCVSZlLQkbZKdKhWmXIz8HwtIP8FJkbw1fdvyPb9Ush2/q7EdB/jLkPzJVS4HJKP5Y7CjQDArEG4dxGMx9V4eOK/eBXI=
     on_success: always
     on_failure: change
-    if: type IN (api, cron)
   email:
     recipients:
     - thanhson1085@gmail.com
