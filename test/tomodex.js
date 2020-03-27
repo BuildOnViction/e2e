@@ -66,7 +66,7 @@ describe('TomoDex', () => {
                         })
                 })
             })
-            Promise.all(map).then(() => done())
+            return Promise.all(map).then(() => done())
         })
     })
 
@@ -94,7 +94,7 @@ describe('TomoDex', () => {
                         })
                 })
             })
-            Promise.all(map).then(() => done())
+            return Promise.all(map).then(() => done())
         })
     })
 
@@ -122,7 +122,7 @@ describe('TomoDex', () => {
                         })
                 })
             })
-            Promise.all(map).then(() => done())
+            return Promise.all(map).then(() => done())
         })
     })
 })
