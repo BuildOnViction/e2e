@@ -13,13 +13,12 @@ stages:
   if: type IN (api, cron)
 notifications:
   slack:
-    rooms:
-      secure: ckORG9wIjCVRys+3aARP6KL7nEmrzTuo+FUHezixyIh77vVv01GXa4HDf19AoP6nCk2Dogf7NIu5FdqKkphDOEjQ/68tqx8bY9lXx09SPKaVU022Rb+3kwrdHu793C1tepB3A1RBquv/SJbeOyJSKCk65HHrqQPws6iITCGK1g+iwrI87NsC89m5KFx0qnh9dRHm0+/h7JXXkfyku86+Lh3A7n8QNAJhNeXEcvs+LTg7C4fbk0clZ57MVZkWuEJzwnGtcApX598h/EoUI65wz6F3kn4SHqD8OffeX81nJw0Ax6RhwSqZe22QpNPFqzPNNoi3IGB3k01EOcSc2EWpv6A9gLHL0k+OtLey4TATjs7Sfqx6I/oimnQQOujcZP5XaikaPRGoa87ZAh8AH/imDJVyczXfJOm1L2AGLoZzj2d1gyQX9mVDP7HIhg00mYVr7zChOL/QSgY2bbtFSSpugvjuebuWvEw+fDmyk8naOcT+tFKCQcR+UOrxw+EGJbkIocP8Wxteq9kh9GzVjKroti/dpHvUotWDv6f6h9615R8MIa0pUKQuRZC0XvRblik/pR7ANn2kJwp/Lt1+Nr2mFS8lTtTz8YYSE+G/LjsL6Gb6ABp0pHCotxw606NYlaK6TnMqt2rcxE2AZwyYM3yVxs7Jojjj0PrUIyKr/wrTJuA=
+    secure: UBDf3O2lzaULpIfTyYCz282jYy4xOwNNiOVMgpsQeflk9UtXSTDBWFjZjUyWZpWvdDTcVHhKF71Yvpd1k7eqAwvyaaLlZkpogIp4NS6QD0eNNDIKmAfTOgK3wkSjKegik7fkXYKDERflKlsmw5In2PYTKw7ZW6FT1y0+9ewiu8j/90eXzPnMTAmm+4ixxlQiuL/ZYJDwLEeXqPkOEqCftxdkrx0qIv0xg7+zntlxaXuB3BJ7AB9OXxvJ8eTXq3qDnW+x5TYOp74baxJdyHAPCFhhyuuRtGg0Q9tWNhMJVuZWrFMHUDMB3UPQdK6hrSq8bs/mivSbrsefm3ltLnIp7GpNVdodKZR8Himx6WisFBDEf1p37A/xqLc3+ECdz78+aL9aBJsustPjVHiVlre0QxYIUvrFzxxn+AUFSfyaFPhd+yXVmL4YSb4tZQZ1RPezsKcBiLMuNYtrozwebejDh9qAJDdNb6IjP1qRKDz1nV0vxTkdcvvGDS2hUkVXtAlI5iRuAd3RetEg7rVQb1w8vN9brTJ/3sn22PxFYw3gqBWdypAYuLjoEUBMrTBkecJ9NvlzkUXbG20LNsaiCVSZlLQkbZKdKhWmXIz8HwtIP8FJkbw1fdvyPb9Ush2/q7EdB/jLkPzJVS4HJKP5Y7CjQDArEG4dxGMx9V4eOK/eBXI=
     on_success: always
     on_failure: change
     if: type IN (api, cron)
   email:
-    recipients:  
+    recipients:
     - thanhson1085@gmail.com
     on_success: change
     on_failure: change
