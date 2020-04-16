@@ -21,9 +21,10 @@
     "tomochain": {
         "uri": "https://tomochain.com"
     },
-    "rpc": {
-        "uri": "https://rpc.tomochain.com"
-    },
+    "rpc": [ 
+        "https://rpc.tomochain.com",
+        "http://159.89.199.223:8545"
+    ],
     "dapps": [
         "https://numberhunt.web.app",
         "https://bugsmaze.web.app",
