@@ -5,9 +5,12 @@ let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
 let BigNumber = require('bignumber.js')
+let TomoXJS = require('tomoxjs')
 let uri = (config.tomodex || {}).uri
 let moment = require('moment')
 let pairs = []
+
+let tomox = new TomoXJS(uri, urljoin(uri, 'socket'))
 
 chai.use(chaiHttp)
 describe('TomoDex', () => {
@@ -67,6 +70,34 @@ describe('TomoDex', () => {
                 })
             })
             Promise.all(map).then(() => done()).catch(() => done())
+        })
+    })
+
+    describe('/WS markets', () => {
+        it('it should WS markets', (done) => {
+            let p = new Promise((resolve, reject) =>  {
+                let timer = null
+                timer = setTimeout(() => {
+                    expect(1).to.equal(0, 'Websocket timeout')
+                    return reject()
+                }, 60 * 1000)
+
+                tomox.watchMarkets().then(ws => {
+                    ws.on('message', (message) => {
+                        let msg = JSON.parse(message)
+                        expect(msg).to.have.property('channel', 'markets') 
+                        clearTimeout(timer)
+                        ws.close()
+                        return resolve()
+                    })
+                }).catch(e => {
+                    expect(1).to.equal(0, e)
+                    clearTimeout(timer)
+                    return reject()
+                })
+            })
+
+            p.then(() => done()).catch(() => done())
         })
     })
 
