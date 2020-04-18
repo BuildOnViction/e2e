@@ -10,13 +10,13 @@ let uri = (config.tomodex || {}).uri
 let moment = require('moment')
 let pairs = []
 
-let tomox = new TomoXJS(uri, urljoin(uri, 'socket'))
-
 chai.use(chaiHttp)
 describe('TomoDex', () => {
     if (!uri) {
         return
     }
+
+    let tomox = new TomoXJS(uri, urljoin(uri, 'socket'))
 
     describe('/GET site', () => {
         it('it should GET site', (done) => {
