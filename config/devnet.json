@@ -1,7 +1,7 @@
 {
     "tomodex": {
         "uri": "https://dex.devnet.tomochain.com",
-        "duration": 10000
+        "duration": 100000
     },
     "tomorelayer": {
         "uri": "https://relayer.devnet.tomochain.com"
