@@ -26,6 +26,7 @@ describe('TomoScan', () => {
 
     describe('/GET reward crawler status', () => {
         it('it should GET crawler status', (done) => {
+            if (process.env.NODE_ENV === 'devnet') return done()
             let url = urljoin(uri, '/api/rewards/alerts/status')
             chai.request(url)
                 .get('')

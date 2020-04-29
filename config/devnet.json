@@ -5,5 +5,17 @@
     },
     "tomorelayer": {
         "uri": "https://relayer.devnet.tomochain.com"
-    }
+    },
+    "tomoscan": {
+        "uri": "https://scan.devnet.tomochain.com"
+    },
+    "tomoissuer": {
+        "uri": "https://issuer.devnet.tomochain.com"
+    },
+    "tomofaucet": {
+        "uri": "https://faucet.devnet.tomochain.com"
+    },
+    "rpc": [
+        "https://rpc.devnet.tomochain.com"
+    ]
 }

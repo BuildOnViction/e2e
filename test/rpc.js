@@ -4,7 +4,7 @@ let should = chai.should()
 let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
-let rpc = (config.rpc || {})
+let rpc = (config.rpc || [])
 
 chai.use(chaiHttp)
 describe('TomoChain RPC', () => {
