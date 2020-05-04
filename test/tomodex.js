@@ -131,6 +131,7 @@ describe('TomoDex', () => {
 
     describe('/GET orderbookInDb', () => {
         it('it should GET orderbookInDb', (done) => {
+            if (process.env.NODE_ENV === 'devnet') return done()
             let url = urljoin(uri, 'api/orderbook/db')
             let map = pairs.map((p) => {
                 return new Promise((resolve, reject) =>  {
