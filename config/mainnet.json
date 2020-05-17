@@ -25,6 +25,10 @@
         "https://rpc.tomochain.com",
         "http://159.89.199.223:8545"
     ],
+    "tomodex": {
+        "uri": "https://dex.tomochain.com",
+        "duration": 1000
+    },
     "dapps": [
         "https://numberhunt.web.app",
         "https://bugsmaze.web.app",
