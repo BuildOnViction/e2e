@@ -27,7 +27,7 @@
     ],
     "tomodex": {
         "uri": "https://dex.tomochain.com",
-        "duration": 600
+        "duration": 1000
     },
     "dapps": [
         "https://numberhunt.web.app",
