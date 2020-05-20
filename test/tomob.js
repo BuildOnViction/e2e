@@ -4,7 +4,7 @@ let should = chai.should()
 let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
-let uri = (config.tomobridge || {}).uri
+let uri = (config.tomob || {}).uri
 
 chai.use(chaiHttp)
 describe('TomoBridge', () => {

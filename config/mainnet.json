@@ -12,8 +12,8 @@
     "tomoissuer": {
         "uri": "https://issuer.tomochain.com"
     },
-    "tomobridge": {
-        "uri": "https://bridge.tomochain.com"
+    "tomob": {
+        "uri": "https://tomob.tomochain.com"
     },
     "tomowallet": {
         "uri": "https://wallet.tomochain.com"
