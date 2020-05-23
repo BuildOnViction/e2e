@@ -7,7 +7,7 @@ let urljoin = require('url-join')
 let uri = (config.tomob || {}).uri
 
 chai.use(chaiHttp)
-describe('TomoBridge', () => {
+describe('TomoB', () => {
     if (!uri) {
         return
     }

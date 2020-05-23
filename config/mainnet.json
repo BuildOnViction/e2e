@@ -15,6 +15,9 @@
     "tomob": {
         "uri": "https://tomob.tomochain.com"
     },
+    "tomobridge": {
+        "uri": "https://tomobridge.tomochain.com"
+    },
     "tomowallet": {
         "uri": "https://wallet.tomochain.com"
     },

@@ -4,10 +4,10 @@ let should = chai.should()
 let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
-let uri = (config.tomorelayer || {}).uri
+let uri = (config.tomobridge || {}).uri
 
 chai.use(chaiHttp)
-describe('TomoRelayer', () => {
+describe('TomoBridge', () => {
     if (!uri) {
         return
     }
@@ -27,16 +27,4 @@ describe('TomoRelayer', () => {
         })
     })
 
-    describe('/GET public data', () => {
-        it('it should GET public data', (done) => {
-            let url = urljoin(uri, '/api/public')
-            chai.request(url)
-                .get('')
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    done()
-                })
-        })
-    })
 })
