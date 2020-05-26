@@ -16,7 +16,8 @@
         "uri": "https://tomob.tomochain.com"
     },
     "tomobridge": {
-        "uri": "https://bridge.tomochain.com"
+        "uri": "https://bridge.tomochain.com",
+        "usdtFeeWallet": "0x2a990cA68B8C9C167b6Db5685D673022BBBeB65B"
     },
     "tomowallet": {
         "uri": "https://wallet.tomochain.com"

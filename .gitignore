@@ -1,4 +1,5 @@
 *.pem
+local.json
 .*.sw*
 node_modules
 .vscode/
