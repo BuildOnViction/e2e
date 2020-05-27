@@ -7,6 +7,7 @@ let urljoin = require('url-join')
 let uri = (config.tomobridge || {}).uri
 let BigNumber = require('bignumber.js')
 let TomoJS = require('tomojs')
+let moment = require('moment')
 
 chai.use(chaiHttp)
 describe('TomoBridge', () => {
@@ -26,6 +27,74 @@ describe('TomoBridge', () => {
                     }
                     done()
                 })
+        })
+    })
+
+    describe('/GET deposit txs', () => {
+        it('it should GET the txs', (done) => {
+            let url = urljoin(uri, 'api/transactions/getWrapTxs')
+            let map = []
+            map.push(new Promise((resolve, reject) =>  {
+                let query = {
+                    coin: 'btc'
+                }
+                return chai.request(url)
+                    .get('/')
+                    .query(query)
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let txs = res.body.Data
+                        let inTx = txs[0].InTx
+                        let outTx = txs[0].OutTx
+                        if (moment().diff(txs[0].CreatedAt, 'seconds') > 3000) {
+                            expect(inTx.Amount).to.equal(outTx.Amount, 'Stuck BTC deposit')
+                        }
+                        resolve()
+                    })
+            }))
+
+            map.push(new Promise((resolve, reject) =>  {
+                let query = {
+                    coin: 'eth'
+                }
+                return chai.request(url)
+                    .get('/')
+                    .query(query)
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let txs = res.body.Data
+                        let inTx = txs[0].InTx
+                        let outTx = txs[0].OutTx
+                        if (moment().diff(txs[0].CreatedAt, 'seconds') > 1000) {
+                            expect(inTx.Amount).to.equal(outTx.Amount, 'Stuck ETH deposit')
+                        }
+                        resolve()
+                    })
+            }))
+
+            map.push(new Promise((resolve, reject) =>  {
+                let query = {
+                    coin: 'usdt'
+                }
+                return chai.request(url)
+                    .get('/')
+                    .query(query)
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let txs = res.body.Data
+                        let inTx = txs[0].InTx
+                        let outTx = txs[0].OutTx
+                        if (moment().diff(txs[0].CreatedAt, 'seconds') > 1000) {
+                            expect(inTx.Amount).to.equal(outTx.Amount, 'Stuck USDT deposit')
+                        }
+                        resolve()
+                    })
+            }))
+
+            Promise.all(map).then(() => done()).catch(() => done())
         })
     })
 
