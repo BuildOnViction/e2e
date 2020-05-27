@@ -86,6 +86,7 @@ describe('TomoDex', () => {
                     ws.on('message', (message) => {
                         let msg = JSON.parse(message)
                         expect(msg).to.have.property('channel', 'markets') 
+                        expect(msg.event.payload.pairData.length).to.above(0)
                         clearTimeout(timer)
                         ws.close()
                         return resolve()
