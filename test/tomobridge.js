@@ -85,7 +85,7 @@ describe('TomoBridge', () => {
             map.push(new Promise((resolve, reject) =>  {
                 let query = {
                     coin: 'usdt',
-                    limit: 10,
+                    limit: 8,
                     page: 1
                 }
                 return chai.request(url)
@@ -117,7 +117,7 @@ describe('TomoBridge', () => {
             map.push(new Promise((resolve, reject) =>  {
                 let query = {
                     coin: 'btc',
-                    limit: 10,
+                    limit: 2,
                     page: 1
                 }
                 return chai.request(url)
