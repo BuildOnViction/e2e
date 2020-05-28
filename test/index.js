@@ -26,11 +26,8 @@ afterEach(async function() {
                 if (response.statusCode !== 200 && response.statusCode !== 201) {
                     return reject(body)
                 }
-
-                let ret = body.result || {}
-                ret.capacity = new BigNumber(ret.capacity).dividedBy(1e+18).toString(10)
-                return resolve(ret)
-
+          
+                return resolve(body)
             })
 
         })
