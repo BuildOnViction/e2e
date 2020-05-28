@@ -8,7 +8,7 @@ afterEach(async function() {
             let url = urljoin(slackUri)
             console.log(this.currentTest)
             let data = {
-                text: process.env.NODE_ENV + ' ' + this.currentTest
+                text: process.env.NODE_ENV + ' ' + this.currentTest.title + ' ' + this.currentTest.err.message
             }
             let options = {
                 method: 'POST',
