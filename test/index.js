@@ -6,8 +6,9 @@ afterEach(async function() {
         let slackUri = process.env.SLACK_URI
         let p = new Promise(async (resolve, reject) => {
             let url = urljoin(slackUri)
+            console.log(this.currentTest)
             let data = {
-                text: process.env.NODE_ENV + ' ' + JSON.stringify(this.currentTest)
+                text: process.env.NODE_ENV + ' ' + this.currentTest
             }
             let options = {
                 method: 'POST',
