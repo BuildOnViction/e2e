@@ -31,6 +31,9 @@
     "tomochain": {
         "uri": "https://tomochain.com"
     },
+    "tomodocs": {
+        "uri": "https://docs.tomochain.com"
+    },
     "rpc": [ 
         "https://rpc.tomochain.com",
         "http://159.89.199.223:8545"
