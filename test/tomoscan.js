@@ -12,8 +12,8 @@ describe('TomoScan', () => {
     }
 
     describe('/GET site', () => {
-        it('it should GET site', (done) => {
-            let url = uri
+        let url = uri
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -25,9 +25,8 @@ describe('TomoScan', () => {
     })
 
     describe('/GET reward crawler status', () => {
-        it('it should GET crawler status', (done) => {
-            if (process.env.NODE_ENV === 'devnet') return done()
-            let url = urljoin(uri, '/api/rewards/alerts/status')
+        let url = urljoin(uri, '/api/rewards/alerts/status')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('')
                 .end((err, res) => {
@@ -40,13 +39,13 @@ describe('TomoScan', () => {
     })
 
     describe('/GET txs crawler', () => {
-        it('it should GET txs crawler', (done) => {
+        let txUrl = urljoin(uri, 'api/txs?page=1&limit=1')
+        it(`GET ${txUrl}`, (done) => {
             let url = urljoin(uri, '/api/blocks?page=1&limit=1')
             chai.request(url)
                 .get('')
                 .end((err, resBlock) => {
-                    url = urljoin(uri, 'api/txs?page=1&limit=1')
-                    chai.request(url)
+                    chai.request(txUrl)
                         .get('')
                         .end((err, resTx) => {
                             resBlock.should.have.status(200)
