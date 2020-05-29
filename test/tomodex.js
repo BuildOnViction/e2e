@@ -19,8 +19,8 @@ describe('TomoDex', () => {
     let tomox = new TomoXJS(uri, urljoin(uri, 'socket'))
 
     describe('/GET site', () => {
-        it('it should GET site', (done) => {
-            let url = uri
+        let url = uri
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -34,8 +34,8 @@ describe('TomoDex', () => {
     })
 
     describe('/GET pairs', () => {
-        it('it should GET trades', (done) => {
-            let url = urljoin(uri, 'api/pairs')
+        let url = urljoin(uri, 'api/pairs')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('')
                 .end((err, res) => {
@@ -48,8 +48,8 @@ describe('TomoDex', () => {
     })
 
     describe('/GET trades', () => {
-        it('it should GET trades', (done) => {
-            let url = urljoin(uri, 'api/trades')
+        let url = urljoin(uri, 'api/trades')
+        it(`GET ${url}`, (done) => {
             let map = pairs.map((p) => {
                 return new Promise((resolve, reject) =>  {
                     chai.request(url)
@@ -74,7 +74,7 @@ describe('TomoDex', () => {
     })
 
     describe('/WS markets', () => {
-        it('it should WS markets', (done) => {
+        it(`WS ${urljoin(uri, 'socket')}`, (done) => {
             let p = new Promise((resolve, reject) =>  {
                 let timer = null
                 timer = setTimeout(() => {
@@ -86,13 +86,13 @@ describe('TomoDex', () => {
                     ws.on('message', (message) => {
                         let msg = JSON.parse(message)
                         expect(msg).to.have.property('channel', 'markets') 
-                        expect(msg.event.payload.pairData.length).to.above(0)
+                        expect(msg.event.payload.pairData.length).to.above(0, 'Websocket Markets is down')
                         clearTimeout(timer)
                         ws.close()
                         return resolve()
                     })
                 }).catch(e => {
-                    expect(1).to.equal(0, e)
+                    expect(1).to.equal(0, String(e))
                     clearTimeout(timer)
                     return reject()
                 })
@@ -103,8 +103,8 @@ describe('TomoDex', () => {
     })
 
     describe('/GET orderbook', () => {
-        it('it should GET orderbook', (done) => {
-            let url = urljoin(uri, 'api/orderbook')
+        let url = urljoin(uri, 'api/orderbook')
+        it(`GET ${url}`, (done) => {
             let map = pairs.map((p) => {
                 return new Promise((resolve, reject) =>  {
                     chai.request(url)
@@ -131,8 +131,8 @@ describe('TomoDex', () => {
     })
 
     describe('/GET orderbookInDb', () => {
-        it('it should GET orderbookInDb', (done) => {
-            let url = urljoin(uri, 'api/orderbook/db')
+        let url = urljoin(uri, 'api/orderbook/db')
+        it(`GET ${url}`, (done) => {
             let map = pairs.map((p) => {
                 return new Promise((resolve, reject) =>  {
                     chai.request(url)

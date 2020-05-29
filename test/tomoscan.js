@@ -32,7 +32,7 @@ describe('TomoScan', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    res.body.isSlow.should.equal(false)
+                    res.body.isSlow.should.equal(false, 'Reward crawler is down')
                     done()
                 })
         })
@@ -53,7 +53,7 @@ describe('TomoScan', () => {
                             resBlock.should.be.json
                             resTx.should.be.json
                             resTx.body.items[0].blockNumber = resTx.body.items[0].blockNumber + 100
-                            resTx.body.items[0].blockNumber.should.above(resBlock.body.items[0].number)
+                            resTx.body.items[0].blockNumber.should.above(resBlock.body.items[0].number, 'Tx Cralwer is down')
                             done()
                         })
                 })

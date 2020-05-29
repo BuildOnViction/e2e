@@ -11,6 +11,7 @@ afterEach(async function() {
                 Enviroment: ${process.env.NODE_ENV}
                 Title: ${this.currentTest.title}
                 Error Message: ${this.currentTest.err.message}
+                Test File: ${this.currentTest.file}
                 `
             }
             let options = {
