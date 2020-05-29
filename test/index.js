@@ -7,14 +7,23 @@ afterEach(async function() {
         let p = new Promise(async (resolve, reject) => {
             let url = urljoin(slackUri)
             let data = {
-                text: `
+                blocks: [
+                    {
+                        type: 'section',
+                        text: {
+                            type: 'mrkdwn',
+                            text: `
+                            \`\`\`
+                            Enviroment: ${(process.env.NODE_ENV || '').toUpperCase()}
+                            Title: ${this.currentTest.title}
+                            Error Message: ${this.currentTest.err.message}
+                            Test File: ${this.currentTest.file}
+                            \`\`\`
+                            `
+                        }
+                    }
+                ]
 
-                Enviroment: ${(process.env.NODE_ENV || '').toUpperCase()}
-                Title: ${this.currentTest.title}
-                Error Message: ${this.currentTest.err.message}
-                Test File: ${this.currentTest.file}
-
-                `
             }
             let options = {
                 method: 'POST',
