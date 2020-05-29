@@ -6,6 +6,7 @@ let config = require('config')
 let urljoin = require('url-join')
 let uri = (config.tomobridge || {}).uri
 let BigNumber = require('bignumber.js')
+let Stats = require('../stats/tomobridge')
 let TomoJS = require('tomojs')
 let moment = require('moment')
 
@@ -204,9 +205,13 @@ describe('TomoBridge', () => {
                     res.should.have.status(200)
                     res.should.be.json
                     let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
-                    console.log(`address=${address} balance=${balance}`)
                     expect(balance).to.above(0.05, 'Not enough balance for wallet fee')
-                    done()
+                    return Stats.push({
+                        table: 'feewallets',
+                        name: 'ETH',
+                        address: address,
+                        value: balance
+                    }).then(() => done()).catch(() => done())
                 })
         })
     })
@@ -225,8 +230,12 @@ describe('TomoBridge', () => {
                         .end((err, res) => {
                             res.should.have.status(200)
                             let balance = parseFloat((new BigNumber(res.text)).dividedBy(1e8).toString(10))
-                            console.log(`token=BTC address=${btc} balance=${balance}`)
-                            resolve()
+                            return Stats.push({
+                                table: 'coins',
+                                name: 'BTC',
+                                address: btc,
+                                value: balance
+                            }).then(() => resolve()).catch(() => resolve())
                         })
                 })
                 map.push(p)
@@ -243,8 +252,12 @@ describe('TomoBridge', () => {
                             res.should.have.status(200)
                             res.should.be.json
                             let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
-                            console.log(`token=ETH address=${eth} balance=${balance}`)
-                            resolve()
+                            return Stats.push({
+                                table: 'coins',
+                                name: 'ETH',
+                                address: eth,
+                                value: balance
+                            }).then(() => resolve()).catch(() => resolve())
                         })
                 })
                 map.push(p)
@@ -260,8 +273,12 @@ describe('TomoBridge', () => {
                             res.should.have.status(200)
                             res.should.be.json
                             let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e6).toString(10))
-                            console.log(`token=USDT address=${eth} balance=${balance}`)
-                            resolve()
+                            return Stats.push({
+                                table: 'coins',
+                                name: 'USDT',
+                                address: usdt,
+                                value: balance
+                            }).then(() => resolve()).catch(() => resolve())
                         })
                 })
                 map.push(p)
@@ -274,8 +291,12 @@ describe('TomoBridge', () => {
                 let p = new Promise((resolve, reject) =>  {
                     return tomojs.tomoz.getTokenInformation(trc21usdt).then(data => {
                         let totalSupply = data.totalSupply
-                        console.log(`token=USDT address=${trc21usdt} totalSupply=${totalSupply}`)
-                        resolve()
+                        return Stats.push({
+                            table: 'trc21tokens',
+                            name: 'USDT',
+                            address: trc21usdt,
+                            value: totalSupply
+                        }).then(() => resolve()).catch(() => resolve())
                     }).catch(e => reject(e))
                 })
                 map.push(p)
@@ -287,8 +308,12 @@ describe('TomoBridge', () => {
                 let p = new Promise((resolve, reject) =>  {
                     return tomojs.tomoz.getTokenInformation(trc21eth).then(data => {
                         let totalSupply = data.totalSupply
-                        console.log(`token=ETH address=${trc21eth} totalSupply=${totalSupply}`)
-                        resolve()
+                        return Stats.push({
+                            table: 'trc21tokens',
+                            name: 'ETH',
+                            address: trc21eth,
+                            value: totalSupply
+                        }).then(() => resolve()).catch(() => resolve())
                     }).catch(e => reject(e))
                 })
                 map.push(p)
@@ -300,8 +325,12 @@ describe('TomoBridge', () => {
                 let p = new Promise((resolve, reject) =>  {
                     return tomojs.tomoz.getTokenInformation(trc21btc).then(data => {
                         let totalSupply = data.totalSupply
-                        console.log(`token=BTC address=${trc21btc} totalSupply=${totalSupply}`)
-                        resolve()
+                        return Stats.push({
+                            table: 'trc21tokens',
+                            name: 'BTC',
+                            address: trc21btc,
+                            value: totalSupply
+                        }).then(() => resolve()).catch(() => resolve())
                     }).catch(e => reject(e))
                 })
                 map.push(p)
