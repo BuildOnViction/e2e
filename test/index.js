@@ -13,12 +13,12 @@ afterEach(async function() {
                         text: {
                             type: 'mrkdwn',
                             text: `
-                            \`\`\`
-                            Enviroment: ${(process.env.NODE_ENV || '').toUpperCase()}
-                            Title: ${this.currentTest.title}
-                            Error Message: ${this.currentTest.err.message}
-                            Test File: ${this.currentTest.file}
-                            \`\`\`
+\`\`\`
+Enviroment: ${(process.env.NODE_ENV || '').toUpperCase()}
+Title: ${this.currentTest.title}
+Error Message: ${this.currentTest.err.message}
+Test File: ${this.currentTest.file}
+\`\`\`
                             `
                         }
                     }
