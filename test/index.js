@@ -8,10 +8,12 @@ afterEach(async function() {
             let url = urljoin(slackUri)
             let data = {
                 text: `
-                Enviroment: ${process.env.NODE_ENV}
+
+                Enviroment: ${(process.env.NODE_ENV || '').toUpperCase()}
                 Title: ${this.currentTest.title}
                 Error Message: ${this.currentTest.err.message}
                 Test File: ${this.currentTest.file}
+
                 `
             }
             let options = {
