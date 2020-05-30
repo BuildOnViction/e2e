@@ -199,6 +199,7 @@ describe('TomoDex', () => {
     describe('/GET all relayers', () => {
         let url = urljoin(uri, 'api/relayer/all')
         it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
                 .get('')
                 .end((err, res) => {
