@@ -6,6 +6,7 @@ let config = require('config')
 let urljoin = require('url-join')
 let BigNumber = require('bignumber.js')
 let TomoXJS = require('tomoxjs')
+let Stats = require('../stats/tomodex')
 let uri = (config.tomodex || {}).uri
 let moment = require('moment')
 let pairs = []
@@ -64,7 +65,7 @@ describe('TomoDex', () => {
                             res.should.have.status(200)
                             res.should.be.json
                             let trades = res.body.data.trades
-                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol}`)
+                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
                             return resolve()
                         })
                 })
@@ -105,7 +106,6 @@ describe('TomoDex', () => {
     describe('/WS orderbook', () => {
         it(`WS ${urljoin(uri, 'socket')}`, (done) => {
             let pair = pairs[0]
-            console.log(pair)
             let p = new Promise((resolve, reject) =>  {
                 let timer = null
                 timer = setTimeout(() => {
@@ -193,6 +193,39 @@ describe('TomoDex', () => {
                 })
             })
             Promise.all(map).then(() => done()).catch(() => done())
+        })
+    })
+
+    describe('/GET all relayers', () => {
+        let url = urljoin(uri, 'api/relayer/all')
+        it(`GET ${url}`, (done) => {
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let relayers = res.body.data
+                    let map = relayers.map((relayer) => {
+                        let volume = parseFloat((new BigNumber(relayer.spotVolume).dividedBy(10 ** 6)).toString(10))
+                        return Stats.push({
+                            table: 'volumes',
+                            type: 'spot',
+                            domain: relayer.domain || 'empty',
+                            address: relayer.address,
+                            value: volume
+                        }).then(() => {
+                            let volume = parseFloat((new BigNumber(relayer.lendingVolume).dividedBy(10 ** 6)).toString(10))
+                            return Stats.push({
+                                table: 'volumes',
+                                type: 'lending',
+                                domain: relayer.domain || 'empty',
+                                address: relayer.address,
+                                value: volume
+                            })
+                        })
+                    })
+                    return Promise.all(map).then(() => done()).catch(() => done())
+                })
         })
     })
 })
