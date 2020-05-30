@@ -32,8 +32,8 @@ describe('TomoBridge', () => {
     })
 
     describe('/GET deposit txs', () => {
-        it('it should GET the deposit txs', (done) => {
-            let url = urljoin(uri, 'api/transactions/getWrapTxs')
+        let url = urljoin(uri, 'api/transactions/getWrapTxs')
+        it(`GET ${url}`, (done) => {
             let map = []
             map.push(new Promise((resolve, reject) =>  {
                 let query = {
@@ -75,7 +75,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            if (moment().diff(tx.CreatedAt, 'seconds') > 1000) {
+                            if (moment().diff(tx.CreatedAt, 'seconds') > 1500) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ETH deposit ${inTx.Hash}`)
                             }
                         })
@@ -99,7 +99,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            if (moment().diff(tx.CreatedAt, 'seconds') > 1000) {
+                            if (moment().diff(tx.CreatedAt, 'seconds') > 1500) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck USDT deposit ${inTx.Hash}`)
                             }
                         })
