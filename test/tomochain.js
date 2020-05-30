@@ -25,7 +25,7 @@ describe('TomoChain website', () => {
     })
 
     describe('/GET get-tomox script', () => {
-        let url = urljson(uri, 'get-tomox.sh')
+        let url = urljoin(uri, 'get-tomox.sh')
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('')
