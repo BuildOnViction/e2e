@@ -101,6 +101,41 @@ describe('TomoDex', () => {
             p.then(() => done()).catch(() => done())
         })
     })
+    
+    describe('/WS orderbook', () => {
+        it(`WS ${urljoin(uri, 'socket')}`, (done) => {
+            let pair = pairs[0]
+            console.log(pair)
+            let p = new Promise((resolve, reject) =>  {
+                let timer = null
+                timer = setTimeout(() => {
+                    expect(1).to.equal(0, 'Websocket timeout')
+                    return reject()
+                }, 60 * 1000)
+
+                tomox.watchOrderBook({
+                    baseToken: pair.baseTokenAddress,
+                    quoteToken: pair.quoteTokenAddress
+                }).then(ws => {
+                    ws.on('message', (message) => {
+                        console.log(message)
+                        let msg = JSON.parse(message)
+                        expect(msg).to.have.property('channel', 'orderbook') 
+                        expect(msg.event.payload.pairName, `Websocket Orderbook ${pair.baseTokenSymbol}/${pair.quoteTokenSymbol} is down`).to.not.be.null
+                        clearTimeout(timer)
+                        ws.close()
+                        return resolve()
+                    })
+                }).catch(e => {
+                    expect(1).to.equal(0, String(e))
+                    clearTimeout(timer)
+                    return reject()
+                })
+            })
+
+            p.then(() => done()).catch(() => done())
+        })
+    })
 
     describe('/GET orderbook', () => {
         let url = urljoin(uri, 'api/orderbook')
@@ -116,6 +151,8 @@ describe('TomoDex', () => {
                         .end((err, res) => {
                             res.should.have.status(200)
                             res.should.be.json
+                            expect(res.body.data.asks.length).to.above(0, `Asks ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
+                            expect(res.body.data.bids.length).to.above(0, `Bids ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
                             if ((res.body.data.bids.length > 0) && (res.body.data.asks.length > 0)) {	
                                 let ask = new BigNumber(res.body.data.asks[0].pricepoint)	
                                 let bid = new BigNumber(res.body.data.bids[0].pricepoint)	
