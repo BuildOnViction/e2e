@@ -118,7 +118,6 @@ describe('TomoDex', () => {
                     quoteToken: pair.quoteTokenAddress
                 }).then(ws => {
                     ws.on('message', (message) => {
-                        console.log(message)
                         let msg = JSON.parse(message)
                         expect(msg).to.have.property('channel', 'orderbook') 
                         expect(msg.event.payload.pairName, `Websocket Orderbook ${pair.baseTokenSymbol}/${pair.quoteTokenSymbol} is down`).to.not.be.null
@@ -151,8 +150,10 @@ describe('TomoDex', () => {
                         .end((err, res) => {
                             res.should.have.status(200)
                             res.should.be.json
-                            expect(res.body.data.asks.length).to.above(0, `Asks ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
-                            expect(res.body.data.bids.length).to.above(0, `Bids ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
+                            if (process.env.NODE_ENV !== 'devnet') {
+                                expect(res.body.data.asks.length).to.above(0, `Asks ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
+                                expect(res.body.data.bids.length).to.above(0, `Bids ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
+                            }
                             if ((res.body.data.bids.length > 0) && (res.body.data.asks.length > 0)) {	
                                 let ask = new BigNumber(res.body.data.asks[0].pricepoint)	
                                 let bid = new BigNumber(res.body.data.bids[0].pricepoint)	
