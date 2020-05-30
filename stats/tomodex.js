@@ -2,14 +2,14 @@ const request = require('request')
 const urljoin = require('url-join')
 const config = require('config')
 
-const push = ({ table, domain, address, type, value }) => {
+const push = ({ table, domain, name, address, type, value }) => {
     return new Promise(async (resolve, reject) => {
         let url = urljoin(`https://metrics.tomochain.com`, 'write', '?db=tomodex')
         let username = process.env.STATS_USERNAME || config.get('stats.username')
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
         let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
         let data = `
-            ${table},address=${address},domain=${domain},type=${type} value=${value}
+            ${table},address=${address},name=${name},domain=${domain},type=${type} value=${value}
             `
         let options = {
             method: 'POST',

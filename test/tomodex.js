@@ -212,6 +212,7 @@ describe('TomoDex', () => {
                             table: 'volumes',
                             type: 'spot',
                             domain: relayer.domain || 'empty',
+                            name: relayer.name || 'empty',
                             address: relayer.address,
                             value: volume
                         }).then(() => {
@@ -220,6 +221,7 @@ describe('TomoDex', () => {
                                 table: 'volumes',
                                 type: 'lending',
                                 domain: relayer.domain || 'empty',
+                                name: relayer.name || 'empty',
                                 address: relayer.address,
                                 value: volume
                             })
