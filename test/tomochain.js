@@ -12,8 +12,8 @@ describe('TomoChain website', () => {
         return
     }
     describe('/GET site', () => {
-        it('it should GET site', (done) => {
-            let url = uri
+        let url = uri
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -23,11 +23,12 @@ describe('TomoChain website', () => {
                 })
         })
     })
+
     describe('/GET get-tomox script', () => {
-        it('it should GET tomox script', (done) => {
-            let url = uri
+        let url = urljson(uri, 'get-tomox.sh')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
-                .get('/get-tomox.sh')
+                .get('')
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.have.header('content-type', 'text/plain');
