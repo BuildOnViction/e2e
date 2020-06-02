@@ -4,7 +4,9 @@ let should = chai.should()
 let config = require('config')
 let urljoin = require('url-join')
 let uri = (config.tomomaster || {}).uri
-const SLASHED_NODES_THRESHOLD = 15
+
+const SLASHED_NODES_THRESHOLD = 25
+
 chai.use(chaiHttp)
 describe('TomoMaster', () => {
     if (!uri) {
