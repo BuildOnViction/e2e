@@ -75,7 +75,7 @@ describe('TomoDex', () => {
     })
 
     describe('/WS markets', () => {
-        it(`WS ${urljoin(uri, 'socket')}`, (done) => {
+        it(`WS markets ${urljoin(uri, 'socket')}`, (done) => {
             let p = new Promise((resolve, reject) =>  {
                 let timer = null
                 timer = setTimeout(() => {
@@ -104,7 +104,7 @@ describe('TomoDex', () => {
     })
     
     describe('/WS orderbook', () => {
-        it(`WS ${urljoin(uri, 'socket')}`, (done) => {
+        it(`WS orderbook ${urljoin(uri, 'socket')}`, (done) => {
             let pair = pairs[0]
             let p = new Promise((resolve, reject) =>  {
                 let timer = null
