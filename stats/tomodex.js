@@ -3,7 +3,7 @@ const urljoin = require('url-join')
 const config = require('config')
 
 const push = ({ table, domain, name, address, type, value }) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         let url = urljoin(`https://metrics.tomochain.com`, 'write', '?db=tomodex')
         let username = process.env.STATS_USERNAME || config.get('stats.username')
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
@@ -24,7 +24,7 @@ const push = ({ table, domain, name, address, type, value }) => {
             if (error) {
                 return reject(error)
             }
-            if (response.statusCode !== 200 && response.statusCode !== 201) {
+            if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }
 

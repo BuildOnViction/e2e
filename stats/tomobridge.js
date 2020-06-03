@@ -23,7 +23,7 @@ const push = ({ table, name, address, value }) => {
             if (error) {
                 return reject(error)
             }
-            if (response.statusCode !== 200 && response.statusCode !== 201) {
+            if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }
 
