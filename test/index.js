@@ -1,6 +1,7 @@
 const request = require('request')
 const urljoin = require('url-join')
 const Stats = require('../stats/product')
+const path = require('path')
 
 afterEach(async function() {
 
