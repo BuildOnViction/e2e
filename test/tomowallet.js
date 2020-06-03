@@ -27,9 +27,9 @@ describe('TomoWallet', () => {
     })
     
     describe('/GET candidate', () => {
-        it('it should GET candidate', (done) => {
+        let url = urljoin(uri, 'api/candidates?limit=10&page=1')
+        it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV === 'testnet') return done()
-            let url = urljoin(uri, 'api/candidates?limit=10&page=1')
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -41,9 +41,9 @@ describe('TomoWallet', () => {
     })
 
     describe('/GET reward', () => {
-        it('it should GET site', (done) => {
+        let url = urljoin(uri, `api/rewards/0x8a124F2BC942f1E14174885c750A905555E88CC9?page=1&limit=1&type=EPOCH`)
+        it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
-            let url = urljoin(uri, `api/rewards/0x8a124F2BC942f1E14174885c750A905555E88CC9?page=1&limit=1&type=EPOCH`)
             chai.request(url)
                 .get('')
                 .end((err, res) => {
