@@ -191,14 +191,64 @@ describe('TomoBridge', () => {
         })
     })
 
-    describe('/GET eth fee balance', () => {
-        it('it should have enough balance for the tx fee', (done) => {
-            let address = config.tomobridge.usdtFeeWallet
+    describe('/GET eth unlock wallet 02 balance', () => {
+        let address = config.tomobridge.ethUnlockWallet02
+        let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
+        let url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
+        it(`GET ${url}`, (done) => {
             if (!address) {
                 return done()
             }
-            let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
-            let url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
+            chai.request(url)
+                .get('/')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
+                    expect(balance).to.above(0.05, `Not enough balance for ethUnlockWallet01 ${address}`)
+                    return Stats.push({
+                        table: 'ethUnlockWallet02',
+                        name: 'ETH',
+                        address: address,
+                        value: balance
+                    }).then(() => done()).catch(() => done())
+                })
+        })
+    })
+
+    describe('/GET eth unlock wallet 01 balance', () => {
+        let address = config.tomobridge.ethUnlockWallet01
+        let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
+        let url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
+        it(`GET ${url}`, (done) => {
+            if (!address) {
+                return done()
+            }
+            chai.request(url)
+                .get('/')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
+                    expect(balance).to.above(0.05, `Not enough balance for ethUnlockWallet01 ${address}`)
+                    return Stats.push({
+                        table: 'ethUnlockWallet01',
+                        name: 'ETH',
+                        address: address,
+                        value: balance
+                    }).then(() => done()).catch(() => done())
+                })
+        })
+    })
+
+    describe('/GET eth fee balance', () => {
+        let address = config.tomobridge.usdtFeeWallet
+        let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
+        let url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
+        it(`GET ${url}`, (done) => {
+            if (!address) {
+                return done()
+            }
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
