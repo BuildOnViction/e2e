@@ -51,7 +51,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            let delay = moment().diff(tx.CreatedAt, 'seconds')
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 3000) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck BTC deposit ${inTx.Hash} delay ${delay}`)
                             }
@@ -76,7 +76,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            let delay = moment().diff(tx.CreatedAt, 'seconds')
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ETH deposit ${inTx.Hash} delay ${delay}`)
                             }
@@ -101,7 +101,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            let delay = moment().diff(tx.CreatedAt, 'seconds')
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck USDT deposit ${inTx.Hash} delay ${delay}`)
                             }
@@ -134,7 +134,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            let delay = moment().diff(tx.CreatedAt, 'seconds')
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 3000) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck BTC withdraw ${inTx.Hash} delay ${delay}`)
                             }
@@ -159,7 +159,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            let delay = moment().diff(tx.CreatedAt, 'seconds')
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ETH withdraw ${inTx.Hash} delay ${delay} seconds`)
                             }
@@ -184,7 +184,7 @@ describe('TomoBridge', () => {
                         txs.forEach(tx => {
                             let inTx = tx.InTx
                             let outTx = tx.OutTx
-                            let delay = moment().diff(tx.CreatedAt, 'seconds')
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck USDT withdraw ${inTx.Hash} delay ${delay} seconds`)
                             }
