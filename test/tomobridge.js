@@ -56,7 +56,12 @@ describe('TomoBridge', () => {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck BTC deposit ${inTx.Hash} delay ${delay}`)
                             }
                         })
-                        resolve()
+                        return Stats.push({
+                            table: 'txdeposit',
+                            name: 'BTC',
+                            address: 'BTC',
+                            value: res.body.Total
+                        }).then(() => resolve()).catch(() => resolve())
                     })
             }))
 
@@ -81,7 +86,12 @@ describe('TomoBridge', () => {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ETH deposit ${inTx.Hash} delay ${delay}`)
                             }
                         })
-                        resolve()
+                        return Stats.push({
+                            table: 'txdeposit',
+                            name: 'ETH',
+                            address: 'ETH',
+                            value: res.body.Total
+                        }).then(() => resolve()).catch(() => resolve())
                     })
             }))
 
@@ -106,7 +116,12 @@ describe('TomoBridge', () => {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck USDT deposit ${inTx.Hash} delay ${delay}`)
                             }
                         })
-                        resolve()
+                        return Stats.push({
+                            table: 'txdeposit',
+                            name: 'USDT',
+                            address: 'USDT',
+                            value: res.body.Total
+                        }).then(() => resolve()).catch(() => resolve())
                     })
             }))
 
@@ -139,7 +154,12 @@ describe('TomoBridge', () => {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck BTC withdraw ${inTx.Hash} delay ${delay}`)
                             }
                         })
-                        resolve()
+                        return Stats.push({
+                            table: 'txwithdraw',
+                            name: 'BTC',
+                            address: 'BTC',
+                            value: res.body.Total
+                        }).then(() => resolve()).catch(() => resolve())
                     })
             }))
 
@@ -164,7 +184,12 @@ describe('TomoBridge', () => {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ETH withdraw ${inTx.Hash} delay ${delay} seconds`)
                             }
                         })
-                        resolve()
+                        return Stats.push({
+                            table: 'txwithdraw',
+                            name: 'ETH',
+                            address: 'ETH',
+                            value: res.body.Total
+                        }).then(() => resolve()).catch(() => resolve())
                     })
             }))
 
@@ -189,7 +214,12 @@ describe('TomoBridge', () => {
                                 expect(inTx.Amount).to.equal(outTx.Amount, `Stuck USDT withdraw ${inTx.Hash} delay ${delay} seconds`)
                             }
                         })
-                        resolve()
+                        return Stats.push({
+                            table: 'txwithdraw',
+                            name: 'USDT',
+                            address: 'USDT',
+                            value: res.body.Total
+                        }).then(() => resolve()).catch(() => resolve())
                     })
             }))
 
