@@ -34,6 +34,56 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/GET get owner balance', () => {
+        let balances = config.tomodex.balances
+        balances.forEach(address => {
+            let url = urljoin(uri, 'api/account', address)
+            it(`GET ${url}`, (done) => {
+                chai.request(url)
+                    .get('')
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let tokenBalances = res.body.data.tokenBalances
+                        let data = []
+                        let inUsdBalance = 0
+                        Object.keys(tokenBalances).forEach(k => {
+                            let balance = new BigNumber(tokenBalances[k].balance).dividedBy(10 ** tokenBalances[k].decimals).toFixed(8).toString(10)
+                            inUsdBalance = inUsdBalance + parseFloat(tokenBalances[k].inUsdBalance)
+                            data.push({
+                                address: address,
+                                tokenAddress: tokenBalances[k].address,
+                                tokenSymbol: tokenBalances[k].symbol,
+                                type: 'raw',
+                                value: balance
+                            })
+                            data.push({
+                                address: address,
+                                tokenAddress: tokenBalances[k].address,
+                                tokenSymbol: tokenBalances[k].symbol,
+                                type: 'usd',
+                                value: tokenBalances[k].inUsdBalance
+                            })
+
+                        })
+                        data.push({
+                            address: address,
+                            tokenAddress: 'total',
+                            tokenSymbol: 'total',
+                            type: 'usd',
+                            value: inUsdBalance
+                        })
+
+                        if (data.length > 0) {
+                            Stats.saveBalances(data)
+                        }
+
+                        done()
+                    })
+            })
+        })
+    })
+
     describe('/GET pairs', () => {
         let url = urljoin(uri, 'api/pairs')
         it(`GET ${url}`, (done) => {

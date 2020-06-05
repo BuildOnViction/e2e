@@ -34,6 +34,44 @@ const push = ({ table, domain, name, address, type, value }) => {
     })
 }
 
+const saveBalances = (balances) => {
+    return new Promise((resolve, reject) => {
+        let url = urljoin(`https://metrics.tomochain.com`, 'write', '?db=tomodex')
+        let username = process.env.STATS_USERNAME || config.get('stats.username')
+        let password = process.env.STATS_PASSWORD || config.get('stats.password')
+        let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
+        let data = ''
+        balances.forEach((balance) => {
+            let { address, tokenAddress, tokenSymbol, type, value } = balance
+            data = data + `
+            balances,address=${address},tokenAddress=${tokenAddress},tokenSymbol=${tokenSymbol},type=${type} value=${value}
+            `
+        })
+
+        let options = {
+            method: 'POST',
+            url: url,
+            encoding: null,
+            headers: {
+                Authorization: auth
+            },
+            body: Buffer.from(data, 'utf-8')
+        }
+        request(options, (error, response, body) => {
+            if (error) {
+                return reject(error)
+            }
+            if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
+                return reject(body)
+            }
+
+            return resolve(body)
+        })
+
+    })
+}
+
 module.exports = {
-    push
+    push,
+    saveBalances
 }

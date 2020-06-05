@@ -42,6 +42,10 @@
     ],
     "tomodex": {
         "uri": "https://dex.tomochain.com",
+        "balances": [
+            "0xdbd09c24a86f5475871f95b0fbc7fa5d1822f9ab",
+            "0x16fF6F4DbD88A3B99B5Dea9be01Ce6257b1adaB4"
+        ],
         "duration": 1000
     },
     "dapps": [
