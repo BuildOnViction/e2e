@@ -36,6 +36,7 @@ describe('TomoDex', () => {
 
     describe('/GET get owner balance', () => {
         let balances = config.tomodex.balances
+        if (balances.length <= 0) return
         balances.forEach(address => {
             let url = urljoin(uri, 'api/account', address)
             it(`GET ${url}`, (done) => {
