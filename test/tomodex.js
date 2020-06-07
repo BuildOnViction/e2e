@@ -131,6 +131,7 @@ describe('TomoDex', () => {
                 let timer = null
                 timer = setTimeout(() => {
                     expect(1).to.equal(0, 'Websocket timeout')
+                    clearTimeout(timer)
                     return reject()
                 }, 60 * 1000)
 
@@ -161,6 +162,7 @@ describe('TomoDex', () => {
                 let timer = null
                 timer = setTimeout(() => {
                     expect(1).to.equal(0, 'Websocket timeout')
+                    clearTimeout(timer)
                     return reject()
                 }, 60 * 1000)
 
