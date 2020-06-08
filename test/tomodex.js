@@ -129,14 +129,15 @@ describe('TomoDex', () => {
         it(`WS markets ${urljoin(uri, 'socket')}`, (done) => {
             let p = new Promise((resolve, reject) =>  {
                 let timer = null
-                timer = setTimeout(() => {
-                    expect(1).to.equal(0, 'Websocket timeout')
-                    return reject()
-                }, 60 * 1000)
-
                 tomox.watchMarkets().then(ws => {
                     ws.on('message', (message) => {
                         let msg = JSON.parse(message)
+                        timer = setTimeout(() => {
+                            ws.close()
+                            expect(1).to.equal(0, 'Websocket timeout')
+                            return reject()
+                        }, 60 * 1000)
+
                         expect(msg).to.have.property('channel', 'markets') 
                         expect(msg.event.payload.pairData.length).to.above(0, 'Websocket Markets is down')
                         clearTimeout(timer)
@@ -159,10 +160,6 @@ describe('TomoDex', () => {
             let pair = pairs[0]
             let p = new Promise((resolve, reject) =>  {
                 let timer = null
-                timer = setTimeout(() => {
-                    expect(1).to.equal(0, 'Websocket timeout')
-                    return reject()
-                }, 60 * 1000)
 
                 tomox.watchOrderBook({
                     baseToken: pair.baseTokenAddress,
@@ -170,6 +167,12 @@ describe('TomoDex', () => {
                 }).then(ws => {
                     ws.on('message', (message) => {
                         let msg = JSON.parse(message)
+                        timer = setTimeout(() => {
+                            ws.close()
+                            expect(1).to.equal(0, 'Websocket timeout')
+                            return reject()
+                        }, 60 * 1000)
+
                         expect(msg).to.have.property('channel', 'orderbook') 
                         expect(msg.event.payload.pairName, `Websocket Orderbook ${pair.baseTokenSymbol}/${pair.quoteTokenSymbol} is down`).to.not.be.null
                         clearTimeout(timer)
