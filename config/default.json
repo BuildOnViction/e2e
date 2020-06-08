@@ -3,5 +3,8 @@
         "username": "tomochain",
         "password": "",
         "uri": "https://metrics.tomochain.com"
+    },
+    "grafana": {
+        "uri": "https://grafana.tomochain.com"
     }
 }

@@ -4,7 +4,7 @@ const config = require('config')
 
 const push = ({ table, domain, name, address, type, value }) => {
     return new Promise((resolve, reject) => {
-        let url = urljoin(`https://metrics.tomochain.com`, 'write', '?db=tomodex')
+        let url = urljoin(config.get('stats.uri'), 'write', '?db=tomodex')
         let username = process.env.STATS_USERNAME || config.get('stats.username')
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
         let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')

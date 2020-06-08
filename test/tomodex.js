@@ -134,6 +134,7 @@ describe('TomoDex', () => {
                         let msg = JSON.parse(message)
                         timer = setTimeout(() => {
                             ws.close()
+                            clearTimeout(timer)
                             expect(1).to.equal(0, 'Websocket timeout')
                             return reject()
                         }, 60 * 1000)
@@ -169,6 +170,7 @@ describe('TomoDex', () => {
                         let msg = JSON.parse(message)
                         timer = setTimeout(() => {
                             ws.close()
+                            clearTimeout(timer)
                             expect(1).to.equal(0, 'Websocket timeout')
                             return reject()
                         }, 60 * 1000)
