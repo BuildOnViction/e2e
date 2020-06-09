@@ -263,23 +263,33 @@ describe('TomoDex', () => {
                     res.should.be.json
                     let relayers = res.body.data
                     let map = relayers.map((relayer) => {
-                        let volume = parseFloat((new BigNumber(relayer.spotVolume).dividedBy(10 ** 6)).toString(10))
+                        let spotVolume = parseFloat((new BigNumber(relayer.spotVolume).dividedBy(10 ** 6)).toString(10))
                         return Stats.push({
                             table: 'volumes',
                             type: 'spot',
                             domain: relayer.domain || 'empty',
                             name: relayer.name || 'empty',
                             address: relayer.address,
-                            value: volume
+                            value: spotVolume
                         }).then(() => {
-                            let volume = parseFloat((new BigNumber(relayer.lendingVolume).dividedBy(10 ** 6)).toString(10))
+                            let lendingVolume = parseFloat((new BigNumber(relayer.lendingVolume).dividedBy(10 ** 6)).toString(10))
+                            let totalVolume = spotVolume + lendingVolume
                             return Stats.push({
                                 table: 'volumes',
                                 type: 'lending',
                                 domain: relayer.domain || 'empty',
                                 name: relayer.name || 'empty',
                                 address: relayer.address,
-                                value: volume
+                                value: lendingVolume
+                            }).then(() => {
+                                return Stats.push({
+                                    table: 'volumes',
+                                    type: 'total',
+                                    domain: relayer.domain || 'empty',
+                                    name: relayer.name || 'empty',
+                                    address: relayer.address,
+                                    value: totalVolume
+                                })
                             })
                         })
                     })
