@@ -24,6 +24,7 @@ const push = ({ table, domain, name, address, type, value }) => {
             if (error) {
                 return reject(error)
             }
+            console.log('Stats', response.statusCode, domain, type, value)
             if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }
