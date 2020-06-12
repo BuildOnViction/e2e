@@ -5,7 +5,7 @@ jobs:
   - stage: Lint
     script: npm run lint
   - stage: Test
-    script: npm test || true
+    script: npm test
 stages:
 - name: Lint
   if: NOT type IN (api, cron)

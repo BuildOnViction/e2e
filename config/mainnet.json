@@ -44,7 +44,15 @@
         "uri": "https://dex.tomochain.com",
         "balances": [
             "0xdbd09c24a86f5475871f95b0fbc7fa5d1822f9ab",
-            "0x16fF6F4DbD88A3B99B5Dea9be01Ce6257b1adaB4"
+            "0x16fF6F4DbD88A3B99B5Dea9be01Ce6257b1adaB4",
+            "0x0000000000000000000000000000000000000011",
+            "0x52fFc5C4a1A63763e2e2d3164064Db7EB9eA0Bea",
+            "0x5F279b654E1159C826983DdB3091BfBa618b2c5E",
+            "0x2a941348945811697d669802D7aBAAA4FC544af2",
+            "0x92875D7345D8447Eb9CBa401CAA4959343772336",
+            "0xC63d341c6c620007288Af645ec0f2ab97502289d",
+            "0xd31C5d6564a74DDF6171e7ca80211c6251b77359",
+            "0x881e1caAE2f97601701C762D73f1C83fD186Cf0C"
         ],
         "duration": 1000
     },

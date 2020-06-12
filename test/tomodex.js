@@ -85,6 +85,52 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/GET all relayers', () => {
+        let url = urljoin(uri, 'api/relayer/all')
+        it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let relayers = res.body.data
+                    let map = relayers.map((relayer) => {
+                        let spotVolume = parseFloat((new BigNumber(relayer.spotVolume).dividedBy(10 ** 6)).toString(10))
+                        return Stats.push({
+                            table: 'volumes',
+                            type: 'spot',
+                            domain: relayer.domain || 'empty',
+                            name: relayer.name || 'empty',
+                            address: relayer.address,
+                            value: spotVolume
+                        }).then(() => {
+                            let lendingVolume = parseFloat((new BigNumber(relayer.lendingVolume).dividedBy(10 ** 6)).toString(10))
+                            let totalVolume = spotVolume + lendingVolume
+                            return Stats.push({
+                                table: 'volumes',
+                                type: 'lending',
+                                domain: relayer.domain || 'empty',
+                                name: relayer.name || 'empty',
+                                address: relayer.address,
+                                value: lendingVolume
+                            }).then(() => {
+                                return Stats.push({
+                                    table: 'volumes',
+                                    type: 'total',
+                                    domain: relayer.domain || 'empty',
+                                    name: relayer.name || 'empty',
+                                    address: relayer.address,
+                                    value: totalVolume
+                                })
+                            })
+                        })
+                    })
+                    return Promise.all(map).then(() => done()).catch(() => done())
+                })
+        })
+    })
+
     describe('/GET pairs', () => {
         let url = urljoin(uri, 'api/pairs')
         it(`GET ${url}`, (done) => {
@@ -252,49 +298,4 @@ describe('TomoDex', () => {
         })
     })
 
-    describe('/GET all relayers', () => {
-        let url = urljoin(uri, 'api/relayer/all')
-        it(`GET ${url}`, (done) => {
-            if (process.env.NODE_ENV !== 'mainnet') return done()
-            chai.request(url)
-                .get('')
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    let relayers = res.body.data
-                    let map = relayers.map((relayer) => {
-                        let spotVolume = parseFloat((new BigNumber(relayer.spotVolume).dividedBy(10 ** 6)).toString(10))
-                        return Stats.push({
-                            table: 'volumes',
-                            type: 'spot',
-                            domain: relayer.domain || 'empty',
-                            name: relayer.name || 'empty',
-                            address: relayer.address,
-                            value: spotVolume
-                        }).then(() => {
-                            let lendingVolume = parseFloat((new BigNumber(relayer.lendingVolume).dividedBy(10 ** 6)).toString(10))
-                            let totalVolume = spotVolume + lendingVolume
-                            return Stats.push({
-                                table: 'volumes',
-                                type: 'lending',
-                                domain: relayer.domain || 'empty',
-                                name: relayer.name || 'empty',
-                                address: relayer.address,
-                                value: lendingVolume
-                            }).then(() => {
-                                return Stats.push({
-                                    table: 'volumes',
-                                    type: 'total',
-                                    domain: relayer.domain || 'empty',
-                                    name: relayer.name || 'empty',
-                                    address: relayer.address,
-                                    value: totalVolume
-                                })
-                            })
-                        })
-                    })
-                    return Promise.all(map).then(() => done()).catch(() => done())
-                })
-        })
-    })
 })
