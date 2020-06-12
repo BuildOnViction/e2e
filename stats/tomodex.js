@@ -44,6 +44,7 @@ const saveBalances = (balances) => {
         let data = ''
         balances.forEach((balance) => {
             let { address, tokenAddress, tokenSymbol, type, value } = balance
+            console.log(`balances,address=${address},tokenAddress=${tokenAddress},tokenSymbol=${tokenSymbol},type=${type} value=${value}`)
             data = data + `
             balances,address=${address},tokenAddress=${tokenAddress},tokenSymbol=${tokenSymbol},type=${type} value=${value}
             `
@@ -59,7 +60,7 @@ const saveBalances = (balances) => {
             body: Buffer.from(data, 'utf-8')
         }
         request(options, (error, response, body) => {
-            console.log(`Stats ${response.statusCode} balances,address=${address},tokenAddress=${tokenAddress},tokenSymbol=${tokenSymbol},type=${type} value=${value}`)
+            console.log(`Stats ${response.statusCode}`)
             if (error) {
                 return reject(error)
             }
