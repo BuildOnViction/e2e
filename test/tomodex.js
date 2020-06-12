@@ -49,14 +49,14 @@ describe('TomoDex', () => {
                         let data = []
                         let inUsdBalance = 0
                         Object.keys(tokenBalances).forEach(k => {
-                            let balance = new BigNumber(tokenBalances[k].balance).dividedBy(10 ** tokenBalances[k].decimals).toFixed(8).toString(10)
+                            let balance = new BigNumber(tokenBalances[k].balance).dividedBy(10 ** tokenBalances[k].decimals).toFixed(6).toString(10)
                             inUsdBalance = inUsdBalance + parseFloat(tokenBalances[k].inUsdBalance)
                             data.push({
                                 address: address,
                                 tokenAddress: tokenBalances[k].address,
                                 tokenSymbol: tokenBalances[k].symbol,
                                 type: 'raw',
-                                value: balance
+                                value: parseFloat(balance)
                             })
                             data.push({
                                 address: address,

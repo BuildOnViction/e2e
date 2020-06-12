@@ -24,7 +24,7 @@ const push = ({ table, domain, name, address, type, value }) => {
             if (error) {
                 return reject(error)
             }
-            console.log('Stats', response.statusCode, domain, type, value)
+            console.log(`Stats ${response.statusCode} ${table},address=${address},name=${name},domain=${domain},type=${type} value=${value}`)
             if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }
@@ -59,6 +59,7 @@ const saveBalances = (balances) => {
             body: Buffer.from(data, 'utf-8')
         }
         request(options, (error, response, body) => {
+            console.log(`Stats ${response.statusCode} balances,address=${address},tokenAddress=${tokenAddress},tokenSymbol=${tokenSymbol},type=${type} value=${value}`)
             if (error) {
                 return reject(error)
             }
