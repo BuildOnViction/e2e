@@ -9,8 +9,8 @@ describe('DApp', () => {
     let dapps = config.dapps || []
     dapps.forEach(dapp => {
         describe(`/GET site ${dapp}`, () => {
-            it('it should GET site', (done) => {
-                let url = dapp
+            let url = dapp
+            it(`GET ${url}`, (done) => {
                 chai.request(url)
                     .get('/')
                     .end((err, res) => {
