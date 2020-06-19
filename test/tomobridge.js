@@ -91,7 +91,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500) {
-                            expect(new BigNumber(inTx.Amount).dividedBy(10 ** 10).toString(10)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 10).toString(10), `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} ETH deposit ${inTx.Hash} delay ${delay}`)
+                            expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8), `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} ETH deposit ${inTx.Hash} delay ${delay}`)
                         }
                     })
                     done()
