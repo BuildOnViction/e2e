@@ -10,6 +10,7 @@ let Stats = require('../stats/tomodex')
 let uri = (config.tomodex || {}).uri
 let moment = require('moment')
 let pairs = []
+let lendingPairs = []
 
 chai.use(chaiHttp)
 describe('TomoDex', () => {
@@ -145,6 +146,21 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/GET lending pairs', () => {
+        let url = urljoin(uri, 'api/lending/pairs')
+        it(`GET ${url}`, (done) => {
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    lendingPairs = res.body.data
+                    done()
+                })
+        })
+    })
+
+
     describe('/GET trades', () => {
         let url = urljoin(uri, 'api/trades')
         it(`GET ${url}`, (done) => {
@@ -178,6 +194,47 @@ describe('TomoDex', () => {
             Promise.all(map).then(() => {
                 Stats.saveTotalTrades({
                     pair: 'all',
+                    env: process.env.NODE_ENV,
+                    value: allTotal
+                })
+                done()
+            }).catch(() => done())
+        })
+    })
+
+    describe('/GET lending trades', () => {
+        let url = urljoin(uri, 'api/lending/trades')
+        it(`GET ${url}`, (done) => {
+            let allTotal = 0
+            let map = lendingPairs.map((p) => {
+                return new Promise((resolve, reject) =>  {
+                    chai.request(url)
+                        .get('')
+                        .query({
+                            lendingToken: p.lendingTokenAddress,
+                            term: p.term,
+                            sortType: 'dec',
+                            sortBy: 'time'
+                        })
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.should.be.json
+                            // let trades = res.body.data.trades
+                            let total = res.body.data.total
+                            allTotal = allTotal + parseInt(total)
+                            // expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
+                            Stats.saveTotalTrades({
+                                pair: p.term + p.lendingTokenSymbol,
+                                env: process.env.NODE_ENV,
+                                value: total
+                            })
+                            return resolve()
+                        })
+                })
+            })
+            Promise.all(map).then(() => {
+                Stats.saveTotalTrades({
+                    pair: 'lending_all',
                     env: process.env.NODE_ENV,
                     value: allTotal
                 })

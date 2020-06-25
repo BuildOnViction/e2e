@@ -42,7 +42,7 @@ const saveTotalTrades = ({ pair, env, value }) => {
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
         let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
         let data = `
-            total_trades,pairs=${pair} value=${value}
+            total_trades,pair=${pair} value=${value}
             `
         let options = {
             method: 'POST',
@@ -57,7 +57,7 @@ const saveTotalTrades = ({ pair, env, value }) => {
             if (error) {
                 return reject(error)
             }
-            console.log(`Stats ${response.statusCode} total_trades,pairs=${pair},env=${env} value=${value}`)
+            console.log(`Stats ${response.statusCode} total_trades,pair=${pair},env=${env} value=${value}`)
             if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }
