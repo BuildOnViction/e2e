@@ -42,7 +42,7 @@ const saveTotalTrades = ({ pair, env, value }) => {
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
         let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
         let data = `
-            total_trades,pair=${pair} value=${value}
+            total_trades,pair=${pair},env=${env} value=${value}
             `
         let options = {
             method: 'POST',
