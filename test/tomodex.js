@@ -148,6 +148,7 @@ describe('TomoDex', () => {
     describe('/GET trades', () => {
         let url = urljoin(uri, 'api/trades')
         it(`GET ${url}`, (done) => {
+            let allTotal = 0
             let map = pairs.map((p) => {
                 return new Promise((resolve, reject) =>  {
                     chai.request(url)
@@ -162,12 +163,24 @@ describe('TomoDex', () => {
                             res.should.have.status(200)
                             res.should.be.json
                             let trades = res.body.data.trades
+                            let total = res.body.data.total
+                            allTotal = allTotal + parseInt(total)
                             expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
+                            Stats.saveTotalTrades({
+                                pair: p.baseTokenSymbol + p.quoteTokenSymbol,
+                                value: total
+                            })
                             return resolve()
                         })
                 })
             })
-            Promise.all(map).then(() => done()).catch(() => done())
+            Promise.all(map).then(() => {
+                Stats.saveTotalTrades({
+                    pair: 'all',
+                    value: allTotal
+                })
+                done()
+            }).catch(() => done())
         })
     })
 
