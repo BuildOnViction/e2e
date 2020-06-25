@@ -35,7 +35,7 @@ const push = ({ table, domain, name, address, type, value }) => {
     })
 }
 
-const saveTotalTrades = ({ pair, value }) => {
+const saveTotalTrades = ({ pair, env, value }) => {
     return new Promise((resolve, reject) => {
         let url = urljoin(config.get('stats.uri'), 'write', '?db=tomodex')
         let username = process.env.STATS_USERNAME || config.get('stats.username')
@@ -57,7 +57,7 @@ const saveTotalTrades = ({ pair, value }) => {
             if (error) {
                 return reject(error)
             }
-            console.log(`Stats ${response.statusCode} total_trades,pairs=${pair} value=${value}`)
+            console.log(`Stats ${response.statusCode} total_trades,pairs=${pair},env=${env} value=${value}`)
             if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }

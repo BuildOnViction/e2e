@@ -168,6 +168,7 @@ describe('TomoDex', () => {
                             expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
                             Stats.saveTotalTrades({
                                 pair: p.baseTokenSymbol + p.quoteTokenSymbol,
+                                env: process.env.NODE_ENV,
                                 value: total
                             })
                             return resolve()
@@ -177,6 +178,7 @@ describe('TomoDex', () => {
             Promise.all(map).then(() => {
                 Stats.saveTotalTrades({
                     pair: 'all',
+                    env: process.env.NODE_ENV,
                     value: allTotal
                 })
                 done()
