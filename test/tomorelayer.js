@@ -13,8 +13,8 @@ describe('TomoRelayer', () => {
     }
 
     describe('/GET site', () => {
-        it('it should GET site', (done) => {
-            let url = uri
+        let url = uri
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -28,8 +28,8 @@ describe('TomoRelayer', () => {
     })
 
     describe('/GET public data', () => {
-        it('it should GET public data', (done) => {
-            let url = urljoin(uri, '/api/public')
+        let url = urljoin(uri, '/api/public')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('')
                 .end((err, res) => {

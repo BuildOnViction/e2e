@@ -13,13 +13,26 @@ describe('TomoIssuer', () => {
     }
 
     describe('/GET site', () => {
-        it('it should GET site', (done) => {
+        it(`GET ${url}`, (done) => {
             let url = uri
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.html
+                    done()
+                })
+        })
+    })
+
+    describe('/GET config', () => {
+        let url = urljoin(uri, '/api/config')
+        it(`GET ${url}`, (done) => {
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
                     done()
                 })
         })
