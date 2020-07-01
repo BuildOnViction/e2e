@@ -35,5 +35,5 @@ const saveRevenue = ({ address, type, value }) => {
 }
 
 module.exports = {
-   saveRevenue 
+    saveRevenue 
 }
