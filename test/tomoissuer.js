@@ -13,8 +13,8 @@ describe('TomoIssuer', () => {
     }
 
     describe('/GET site', () => {
+        let url = uri
         it(`GET ${url}`, (done) => {
-            let url = uri
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
