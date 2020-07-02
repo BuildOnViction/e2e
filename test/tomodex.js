@@ -243,6 +243,26 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/GET total users', () => {
+        let url = urljoin(uri, 'stats/trades/number')
+        it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalUsers({
+                        pair: 'all',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data
+                    })
+                    done()
+                })
+        })
+    })
+
+
     describe('/WS markets', () => {
         it(`WS markets ${urljoin(uri, 'socket')}`, (done) => {
             let p = new Promise((resolve, reject) =>  {

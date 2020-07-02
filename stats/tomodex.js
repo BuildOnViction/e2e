@@ -68,6 +68,39 @@ const saveTotalTrades = ({ pair, env, value }) => {
     })
 }
 
+const saveTotalUsers = ({ pair, env, value }) => {
+    return new Promise((resolve, reject) => {
+        let url = urljoin(config.get('stats.uri'), 'write', '?db=tomodex')
+        let username = process.env.STATS_USERNAME || config.get('stats.username')
+        let password = process.env.STATS_PASSWORD || config.get('stats.password')
+        let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
+        let data = `
+            total_users,pair=${pair},env=${env} value=${value}
+            `
+        let options = {
+            method: 'POST',
+            url: url,
+            encoding: null,
+            headers: {
+                Authorization: auth
+            },
+            body: Buffer.from(data, 'utf-8')
+        }
+        request(options, (error, response, body) => {
+            if (error) {
+                return reject(error)
+            }
+            console.log(`Stats ${response.statusCode} total_users,pair=${pair},env=${env} value=${value}`)
+            if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
+                return reject(body)
+            }
+
+            return resolve(body)
+        })
+
+    })
+}
+
 const saveBalances = (balances) => {
     return new Promise((resolve, reject) => {
         let url = urljoin(config.get('stats.uri'), 'write', '?db=tomodex')
@@ -110,5 +143,6 @@ const saveBalances = (balances) => {
 module.exports = {
     push,
     saveBalances,
-    saveTotalTrades
+    saveTotalTrades,
+    saveTotalUsers
 }
