@@ -371,9 +371,9 @@ describe('TomoDex', () => {
     })
 
     describe('/GET coingecko apis', () => {
-        if (process.env.NODE_ENV !== 'mainnet') return done()
         let url = urljoin(uri, 'api/coingecko/pairs')
         it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
                 .get('')
                 .end((err, res) => {
@@ -386,9 +386,9 @@ describe('TomoDex', () => {
     })
 
     describe('/GET coinmarketcap apis', () => {
-        if (process.env.NODE_ENV !== 'mainnet') return done()
         let url = urljoin(uri, 'api/coinmarketcap/markets')
         it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
                 .get('')
                 .end((err, res) => {
