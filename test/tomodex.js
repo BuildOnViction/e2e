@@ -370,4 +370,32 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/GET coingecko apis', () => {
+        let url = urljoin(uri, 'api/coingecko/pairs')
+        it(`GET ${url}`, (done) => {
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    expect(res.body.length).to.above(0, 'Empty pairs')
+                    done()
+                })
+        })
+    })
+
+    describe('/GET coinmarketcap apis', () => {
+        let url = urljoin(uri, 'api/coinmarketcap/markets')
+        it(`GET ${url}`, (done) => {
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    expect(res.body.length).to.above(0, 'Empty markets')
+                    done()
+                })
+        })
+    })
+
 })
