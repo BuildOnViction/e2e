@@ -90,7 +90,7 @@ const saveTotalUsers = ({ pair, duration, env, value }) => {
             if (error) {
                 return reject(error)
             }
-            console.log(`Stats ${response.statusCode} total_users,pair=${pair},env=${env} value=${value}`)
+            console.log(`Stats ${response.statusCode} total_users,pair=${pair},duration=${duration},env=${env} value=${value}`)
             if (response.statusCode !== 200 && response.statusCode !== 201 && response.statusCode !== 204) {
                 return reject(body)
             }
