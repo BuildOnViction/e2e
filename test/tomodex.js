@@ -368,7 +368,7 @@ describe('TomoDex', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    let v = (new BigNumber(res.body.data.totalVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    let v = (new BigNumber(res.body.data.totalLendingVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
                     Stats.push({
                         table: 'volumes',
                         type: 'lending7d',
@@ -389,7 +389,7 @@ describe('TomoDex', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    let v = (new BigNumber(res.body.data.totalVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    let v = (new BigNumber(res.body.data.totalLendingVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
                     Stats.push({
                         table: 'volumes',
                         type: 'lending30d',
@@ -401,7 +401,7 @@ describe('TomoDex', () => {
                     done()
                 })
         })
-    }
+    })
 
 
     describe('/WS markets', () => {
