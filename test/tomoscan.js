@@ -65,6 +65,7 @@ describe('TomoScan', () => {
     describe('/GET trc21 token holers', () => {
         let url = urljoin(uri, '/api/token-holders/trc21?page=1&limit=1&address=0x3c6475f8b4200e0a6acf5aeb2b44b769a3d37216')
         it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
                 .get('')
                 .end((err, res) => {
