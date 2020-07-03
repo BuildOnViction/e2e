@@ -244,7 +244,7 @@ describe('TomoDex', () => {
     })
 
     describe('/GET total, 1d, 7d, 30d users', () => {
-        let url = urljoin(uri, 'stats/trades/users/count')
+        let url = urljoin(uri, 'stats/trades/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84')
         it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
@@ -262,7 +262,7 @@ describe('TomoDex', () => {
                 })
         })
 
-        url = urljoin(uri, 'stats/trades/users/count?duration=1d')
+        url = urljoin(uri, 'stats/trades/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84&duration=1d')
         it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
@@ -280,7 +280,7 @@ describe('TomoDex', () => {
                 })
         })
 
-        url = urljoin(uri, 'stats/trades/users/count?duration=7d')
+        url = urljoin(uri, 'stats/trades/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84&duration=7d')
         it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
@@ -298,7 +298,7 @@ describe('TomoDex', () => {
                 })
         })
 
-        url = urljoin(uri, 'stats/trades/users/count?duration=30d')
+        url = urljoin(uri, 'stats/trades/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84&duration=30d')
         it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
