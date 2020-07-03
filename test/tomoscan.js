@@ -1,5 +1,6 @@
 let chai = require('chai')
 let chaiHttp = require('chai-http')
+let expect = chai.expect
 let should = chai.should()
 let config = require('config')
 let urljoin = require('url-join')
@@ -57,6 +58,21 @@ describe('TomoScan', () => {
                             resTx.body.items[0].blockNumber.should.above(resBlock.body.items[0].number, 'Tx Cralwer is down')
                             done()
                         })
+                })
+        })
+    })
+
+    describe('/GET trc21 token holers', () => {
+        let url = urljoin(uri, '/api/token-holders/trc21?page=1&limit=1&address=0x3c6475f8b4200e0a6acf5aeb2b44b769a3d37216')
+        it(`GET ${url}`, (done) => {
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    expect(res.body.items.length).to.above(0, 'empty holders')
+                    expect(res.body.items[0].quantityNumber).to.above(0, 'Wrong holder balance')
+                    done()
                 })
         })
     })
