@@ -35,14 +35,14 @@ const push = ({ table, domain, name, address, type, value }) => {
     })
 }
 
-const saveTotalTrades = ({ pair, duration, env, value }) => {
+const saveTotalTrades = ({ pair, env, value }) => {
     return new Promise((resolve, reject) => {
         let url = urljoin(config.get('stats.uri'), 'write', '?db=tomodex')
         let username = process.env.STATS_USERNAME || config.get('stats.username')
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
         let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
         let data = `
-            total_trades,pair=${pair},duration=${duration},env=${env} value=${value}
+            total_trades,pair=${pair},env=${env} value=${value}
             `
         let options = {
             method: 'POST',
@@ -68,14 +68,14 @@ const saveTotalTrades = ({ pair, duration, env, value }) => {
     })
 }
 
-const saveTotalUsers = ({ pair, env, value }) => {
+const saveTotalUsers = ({ pair, duration, env, value }) => {
     return new Promise((resolve, reject) => {
         let url = urljoin(config.get('stats.uri'), 'write', '?db=tomodex')
         let username = process.env.STATS_USERNAME || config.get('stats.username')
         let password = process.env.STATS_PASSWORD || config.get('stats.password')
         let auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64')
         let data = `
-            total_users,pair=${pair},env=${env} value=${value}
+            total_users,pair=${pair},duration=${duration},env=${env} value=${value}
             `
         let options = {
             method: 'POST',
