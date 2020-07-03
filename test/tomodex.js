@@ -317,6 +317,92 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/GET spot/lending 7d, 30d volumes', () => {
+        let urlspot7d = urljoin(uri, 'api/relayer/volume?type=7d')
+        it(`GET ${urlspot7d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(urlspot7d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let v = (new BigNumber(res.body.data.totalVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    Stats.push({
+                        table: 'volumes',
+                        type: 'spot7d',
+                        domain: relayer.domain || 'empty',
+                        name: relayer.name || 'empty',
+                        address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
+                        value: v
+                    })
+                    done()
+                })
+        })
+
+        let urlspot30d = urljoin(uri, 'api/relayer/volume?type=30d')
+        it(`GET ${urlspot30d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(urlspot30d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let v = (new BigNumber(res.body.data.totalVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    Stats.push({
+                        table: 'volumes',
+                        type: 'spot30d',
+                        domain: relayer.domain || 'empty',
+                        name: relayer.name || 'empty',
+                        address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
+                        value: v
+                    })
+                    done()
+                })
+        })
+
+        let urll7d = urljoin(uri, 'api/relayer/lending?type=7d')
+        it(`GET ${urll7d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(urll7d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let v = (new BigNumber(res.body.data.totalVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    Stats.push({
+                        table: 'volumes',
+                        type: 'lending7d',
+                        domain: relayer.domain || 'empty',
+                        name: relayer.name || 'empty',
+                        address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
+                        value: v
+                    })
+                    done()
+                })
+        })
+
+        let urll30d = urljoin(uri, 'api/relayer/lending?type=30d')
+        it(`GET ${urll30d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(urll30d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let v = (new BigNumber(res.body.data.totalVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    Stats.push({
+                        table: 'volumes',
+                        type: 'lending30d',
+                        domain: relayer.domain || 'empty',
+                        name: relayer.name || 'empty',
+                        address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
+                        value: v
+                    })
+                    done()
+                })
+        })
+    }
+
 
     describe('/WS markets', () => {
         it(`WS markets ${urljoin(uri, 'socket')}`, (done) => {
