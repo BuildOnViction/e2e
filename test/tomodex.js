@@ -330,8 +330,8 @@ describe('TomoDex', () => {
                     Stats.push({
                         table: 'volumes',
                         type: 'spot7d',
-                        domain: relayer.domain || 'empty',
-                        name: relayer.name || 'empty',
+                        domain: 'dex.tomochain.com',
+                        name: 'tomodex',
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
@@ -351,8 +351,8 @@ describe('TomoDex', () => {
                     Stats.push({
                         table: 'volumes',
                         type: 'spot30d',
-                        domain: relayer.domain || 'empty',
-                        name: relayer.name || 'empty',
+                        domain: 'dex.tomochain.com',
+                        name: 'tomodex',
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
@@ -372,8 +372,8 @@ describe('TomoDex', () => {
                     Stats.push({
                         table: 'volumes',
                         type: 'lending7d',
-                        domain: relayer.domain || 'empty',
-                        name: relayer.name || 'empty',
+                        domain: 'dex.tomochain.com',
+                        name: 'tomodex',
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
@@ -393,8 +393,8 @@ describe('TomoDex', () => {
                     Stats.push({
                         table: 'volumes',
                         type: 'lending30d',
-                        domain: relayer.domain || 'empty',
-                        name: relayer.name || 'empty',
+                        domain: 'dex.tomochain.com',
+                        name: 'tomodex',
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
