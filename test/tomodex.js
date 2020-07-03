@@ -243,7 +243,7 @@ describe('TomoDex', () => {
         })
     })
 
-    describe('/GET total users', () => {
+    describe('/GET total, 1d, 7d, 30d users', () => {
         let url = urljoin(uri, 'stats/trades/users/count')
         it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
@@ -254,6 +254,61 @@ describe('TomoDex', () => {
                     res.should.be.json
                     Stats.saveTotalUsers({
                         pair: 'all',
+                        duration: 'all',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
+
+        url = urljoin(uri, 'stats/trades/users/count?duration=1d')
+        it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalUsers({
+                        pair: 'all',
+                        duration: '24h',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
+
+        url = urljoin(uri, 'stats/trades/users/count?duration=7d')
+        it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalUsers({
+                        pair: 'all',
+                        duration: '7d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
+
+        url = urljoin(uri, 'stats/trades/users/count?duration=30d')
+        it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalUsers({
+                        pair: 'all',
+                        duration: '30d',
                         env: process.env.NODE_ENV,
                         value: res.body.data.activeUser
                     })
