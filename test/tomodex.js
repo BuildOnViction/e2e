@@ -184,6 +184,7 @@ describe('TomoDex', () => {
                             expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
                             Stats.saveTotalTrades({
                                 pair: p.baseTokenSymbol + p.quoteTokenSymbol,
+                                duration: 'spotall',
                                 env: process.env.NODE_ENV,
                                 value: total
                             })
@@ -194,6 +195,7 @@ describe('TomoDex', () => {
             Promise.all(map).then(() => {
                 Stats.saveTotalTrades({
                     pair: 'all',
+                    duration: 'spotall',
                     env: process.env.NODE_ENV,
                     value: allTotal
                 })
@@ -225,6 +227,7 @@ describe('TomoDex', () => {
                             // expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
                             Stats.saveTotalTrades({
                                 pair: p.term + p.lendingTokenSymbol,
+                                duration: 'lendingall',
                                 env: process.env.NODE_ENV,
                                 value: total
                             })
@@ -235,6 +238,7 @@ describe('TomoDex', () => {
             Promise.all(map).then(() => {
                 Stats.saveTotalTrades({
                     pair: 'lending_all',
+                    duration: 'lendingall',
                     env: process.env.NODE_ENV,
                     value: allTotal
                 })
@@ -335,6 +339,12 @@ describe('TomoDex', () => {
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
+                    Stats.saveTotalTrades({
+                        pair: 'all',
+                        duration: 'spot30d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.totalTrade
+                    })
                     done()
                 })
         })
@@ -355,6 +365,50 @@ describe('TomoDex', () => {
                         name: 'tomodex',
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
+                    })
+                    Stats.saveTotalTrades({
+                        pair: 'all',
+                        duration: 'spot30d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.totalTrade
+                    })
+                    done()
+                })
+        })
+
+        let urlspot24h = urljoin(uri, 'api/relayer/volume?type=24h')
+        it(`GET ${urlspot24h}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(urlspot24h)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let v = (new BigNumber(res.body.data.totalLendingVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    Stats.saveTotalTrades({
+                        pair: 'all',
+                        duration: 'spot24h',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.totalTrade
+                    })
+                    done()
+                })
+        })
+
+        let urll24h = urljoin(uri, 'api/relayer/lending?type=24h')
+        it(`GET ${urll24h}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(urll24h)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let v = (new BigNumber(res.body.data.totalLendingVolume).dividedBy(10 ** 6)).toFixed(4).toString(10)
+                    Stats.saveTotalTrades({
+                        pair: 'all',
+                        duration: 'lending24h',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.totalLendingTrade
                     })
                     done()
                 })
@@ -377,6 +431,12 @@ describe('TomoDex', () => {
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
+                    Stats.saveTotalTrades({
+                        pair: 'all',
+                        duration: 'lending7d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.totalLendingTrade
+                    })
                     done()
                 })
         })
@@ -398,11 +458,16 @@ describe('TomoDex', () => {
                         address: '0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84',
                         value: v
                     })
+                    Stats.saveTotalTrades({
+                        pair: 'all',
+                        duration: 'lending30d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.totalLendingTrade
+                    })
                     done()
                 })
         })
     })
-
 
     describe('/WS markets', () => {
         it(`WS markets ${urljoin(uri, 'socket')}`, (done) => {
