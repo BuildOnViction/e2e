@@ -321,7 +321,7 @@ describe('TomoDex', () => {
         })
     })
 
-    describe('/GET spot/lending 7d, 30d volumes', () => {
+    describe('/GET spot/lending 1d, 7d, 30d volumes', () => {
         let urlspot7d = urljoin(uri, 'api/relayer/volume?type=7d')
         it(`GET ${urlspot7d}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
@@ -341,7 +341,7 @@ describe('TomoDex', () => {
                     })
                     Stats.saveTotalTrades({
                         pair: 'all',
-                        duration: 'spot30d',
+                        duration: 'spot7d',
                         env: process.env.NODE_ENV,
                         value: res.body.data.totalTrade
                     })
