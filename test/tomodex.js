@@ -244,7 +244,7 @@ describe('TomoDex', () => {
     })
 
     describe('/GET total users', () => {
-        let url = urljoin(uri, 'stats/trades/number')
+        let url = urljoin(uri, 'stats/trades/users/count')
         it(`GET ${url}`, (done) => {
             if (process.env.NODE_ENV !== 'mainnet') return done()
             chai.request(url)
@@ -255,7 +255,7 @@ describe('TomoDex', () => {
                     Stats.saveTotalUsers({
                         pair: 'all',
                         env: process.env.NODE_ENV,
-                        value: res.body.data
+                        value: res.body.data.activeUser
                     })
                     done()
                 })
