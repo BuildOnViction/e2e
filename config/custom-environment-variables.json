@@ -1,0 +1,5 @@
+{
+    "grafana": {
+        "apiKey": "GRAFANA_API_KEY"
+    }
+}

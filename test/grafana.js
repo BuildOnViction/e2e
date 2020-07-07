@@ -24,6 +24,7 @@ describe('Grafana', () => {
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
+                .set('Authorization', config.get('grafana.apiKey'))
                 .query(q)
                 .end((err, res) => {
                     res.should.have.status(200)
@@ -51,6 +52,7 @@ describe('Grafana', () => {
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
+                .set('Authorization', config.get('grafana.apiKey'))
                 .query(q)
                 .end((err, res) => {
                     res.should.have.status(200)
@@ -78,6 +80,7 @@ describe('Grafana', () => {
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
+                .set('Authorization', config.get('grafana.apiKey'))
                 .query(q)
                 .end((err, res) => {
                     res.should.have.status(200)
