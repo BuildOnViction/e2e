@@ -24,7 +24,7 @@ describe('Grafana', () => {
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
-                .set('Authorization', process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))
+                .set('Authorization', `Bearer ${(process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))}`)
                 .query(q)
                 .end((err, res) => {
                     res.should.have.status(200)
@@ -52,7 +52,7 @@ describe('Grafana', () => {
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
-                .set('Authorization', process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))
+                .set('Authorization', `Bearer ${(process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))}`)
                 .query(q)
                 .end((err, res) => {
                     res.should.have.status(200)
@@ -80,7 +80,7 @@ describe('Grafana', () => {
         it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
-                .set('Authorization', process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))
+                .set('Authorization', `Bearer ${(process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))}`)
                 .query(q)
                 .end((err, res) => {
                     res.should.have.status(200)
