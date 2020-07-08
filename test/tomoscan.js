@@ -4,6 +4,7 @@ let expect = chai.expect
 let should = chai.should()
 let config = require('config')
 let urljoin = require('url-join')
+let Stats = require('../stats/tomochain')
 let uri = (config.tomoscan || {}).uri
 
 chai.use(chaiHttp)
@@ -20,6 +21,24 @@ describe('TomoScan', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.html
+                    done()
+                })
+        })
+    })
+
+    describe('/GET epoch data', () => {
+        let url = urljoin(uri, 'api/epochs?page=1&limit=1')
+        it(`GET ${url}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    expect(res.body.items.length).to.above(0, 'Empty epoch')
+                    Stats.saveEpochSlashedNode(res.body.items[0].slashedNode.length)
+                    Stats.saveEpochVoter(res.body.items[0].voterNumber)
+                    Stats.saveEpochDuration(res.body.items[0].duration)
                     done()
                 })
         })
