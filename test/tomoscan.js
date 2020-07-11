@@ -36,7 +36,7 @@ describe('TomoScan', () => {
                     res.should.have.status(200)
                     res.should.be.json
                     expect(res.body.items.length).to.above(0, 'Empty epoch')
-                    Stats.saveEpochSlashedNode(res.body.items[0].slashedNode.length)
+                    Stats.saveEpochSlashedNode((res.body.items[0].slashedNode || []).length)
                     Stats.saveEpochVoter(res.body.items[0].voterNumber)
                     Stats.saveEpochDuration(res.body.items[0].duration)
                     done()
