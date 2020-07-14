@@ -319,6 +319,78 @@ describe('TomoDex', () => {
                     done()
                 })
         })
+
+        let lurl = urljoin(uri, 'stats/lending/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84')
+        it(`GET ${lurl}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(lurl)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalLendingUsers({
+                        pair: 'all',
+                        duration: 'all',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
+
+        let lurl1d = urljoin(uri, 'stats/lending/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84&duration=1d')
+        it(`GET ${lurl1d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(lurl1d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalLendingUsers({
+                        pair: 'all',
+                        duration: '24h',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
+
+        let lurl7d = urljoin(uri, 'stats/lending/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84&duration=7d')
+        it(`GET ${lurl7d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(lurl7d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalLendingUsers({
+                        pair: 'all',
+                        duration: '7d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
+
+        let lurl30d = urljoin(uri, 'stats/lending/users/count?relayerAddress=0xdE8Bb39eC2DAC88d3F87B62E18CC3A89E298bc84&duration=30d')
+        it(`GET ${lurl30d}`, (done) => {
+            if (process.env.NODE_ENV !== 'mainnet') return done()
+            chai.request(lurl30d)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    Stats.saveTotalLendingUsers({
+                        pair: 'all',
+                        duration: '30d',
+                        env: process.env.NODE_ENV,
+                        value: res.body.data.activeUser
+                    })
+                    done()
+                })
+        })
     })
 
     describe('/GET spot/lending 1d, 7d, 30d volumes', () => {
