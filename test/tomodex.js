@@ -622,7 +622,7 @@ describe('TomoDex', () => {
                         .end((err, res) => {
                             res.should.have.status(200)
                             res.should.be.json
-                            if (process.env.NODE_ENV !== 'devnet') {
+                            if (process.env.NODE_ENV === 'mainnet') {
                                 expect(res.body.data.asks.length).to.above(0, `Asks ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
                                 expect(res.body.data.bids.length).to.above(0, `Bids ${p.baseTokenSymbol}/${p.quoteTokenSymbol} is empty`)
                             }
