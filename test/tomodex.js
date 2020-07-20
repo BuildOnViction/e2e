@@ -608,6 +608,44 @@ describe('TomoDex', () => {
         })
     })
 
+    describe('/WS OHLCV', () => {
+        it(`WS OHLCV ${urljoin(uri, 'socket')}`, (done) => {
+            let pair = pairs[0]
+            let p = new Promise((resolve, reject) =>  {
+                let timer = null
+
+                tomox.watchOHLCV({
+                    baseToken: pair.baseTokenAddress,
+                    quoteToken: pair.quoteTokenAddress,
+                    units: 'hour',
+                    duration: 1
+                }).then(ws => {
+                    ws.on('message', (message) => {
+                        let msg = JSON.parse(message)
+                        timer = setTimeout(() => {
+                            ws.close()
+                            clearTimeout(timer)
+                            expect(1).to.equal(0, 'Websocket timeout')
+                            return reject()
+                        }, 60 * 1000)
+
+                        expect(msg).to.have.property('channel', 'ohlcv')
+                        expect(msg.event.payload.length).to.above(0, `Websocket OHLCV ${pair.baseTokenSymbol}/${pair.quoteTokenSymbol} is down`)
+                        clearTimeout(timer)
+                        ws.close()
+                        return resolve()
+                    })
+                }).catch(e => {
+                    expect(1).to.equal(0, String(e))
+                    clearTimeout(timer)
+                    return reject()
+                })
+            })
+
+            p.then(() => done()).catch(() => done())
+        })
+    })
+
     describe('/GET orderbook', () => {
         let url = urljoin(uri, 'api/orderbook')
         it(`GET ${url}`, (done) => {
