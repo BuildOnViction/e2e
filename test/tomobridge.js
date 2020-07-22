@@ -133,6 +133,39 @@ describe('TomoBridge', () => {
         })
     })
 
+    describe('/GET deposit YFI txs', () => {
+        let url = urljoin(uri, 'api/transactions/getWrapTxs')
+        it(`GET ${url}`, (done) => {
+            let query = {
+                coin: 'yfi',
+                limit: 8,
+                page: 1
+            }
+            chai.request(url)
+                .get('/')
+                .query(query)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let txs = res.body.Data
+                    Stats.push({
+                        table: 'txdeposit',
+                        name: 'YFI',
+                        address: 'YFI',
+                        value: res.body.Total
+                    })
+                    txs.forEach(tx => {
+                        let inTx = tx.InTx
+                        let outTx = tx.OutTx
+                        let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
+                        if (delay > 1500) {
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} YFI deposit ${inTx.Hash} delay ${delay}`)
+                        }
+                    })
+                    done()
+                })
+        })
+    })
 
     describe('/GET withdraw BTC txs', () => {
         let url = urljoin(uri, 'api/transactions/getUnwrapTxs')
@@ -232,6 +265,40 @@ describe('TomoBridge', () => {
                             && inTx.Hash != '0x00e04be5d1085c4839cc0947a8f45e591f83a5e1f2373686f0b7a19edd70509b'
                             && inTx.Hash != '0x728b0d698fe50514196f175137c63bff4c29d45c8f4af6f10910067f56f493a7') {
                             expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} USDT withdraw ${inTx.Hash} delay ${delay} seconds`)
+                        }
+                    })
+                    done()
+                })
+        })
+    })
+
+    describe('/GET withdraw YFI txs', () => {
+        let url = urljoin(uri, 'api/transactions/getUnwrapTxs')
+        it(`GET ${url}`, (done) => {
+            let query = {
+                coin: 'yfi',
+                limit: 10,
+                page: 1
+            }
+            chai.request(url)
+                .get('/')
+                .query(query)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let txs = res.body.Data
+                    Stats.push({
+                        table: 'txwithdraw',
+                        name: 'YFI',
+                        address: 'YFI',
+                        value: res.body.Total
+                    })
+                    txs.forEach(tx => {
+                        let inTx = tx.InTx
+                        let outTx = tx.OutTx
+                        let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
+                        if (delay > 1500) {
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} YFI withdraw ${inTx.Hash} delay ${delay} seconds`)
                         }
                     })
                     done()
@@ -382,6 +449,27 @@ describe('TomoBridge', () => {
                 map.push(p)
             }
 
+            let yfi = config.tomobridge.lockedYFI
+            if (yfi) {
+                let url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e&address=${yfi}&tag=latest&apikey=${apiKey}`
+                let p = new Promise((resolve, reject) =>  {
+                    return chai.request(url)
+                        .get('/')
+                        .end((err, res) => {
+                            res.should.have.status(200)
+                            res.should.be.json
+                            let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
+                            return Stats.push({
+                                table: 'coins',
+                                name: 'YFI',
+                                address: yfi,
+                                value: balance
+                            }).then(() => resolve()).catch(() => resolve())
+                        })
+                })
+                map.push(p)
+            }
+
             let tomojs = new TomoJS('https://rpc.tomochain.com')
             let trc21usdt = config.tomobridge.trc21USDT
 
@@ -393,6 +481,23 @@ describe('TomoBridge', () => {
                             table: 'trc21tokens',
                             name: 'USDT',
                             address: trc21usdt,
+                            value: totalSupply
+                        }).then(() => resolve()).catch(() => resolve())
+                    }).catch(e => reject(e))
+                })
+                map.push(p)
+            }
+
+            let trc21yfi = config.tomobridge.trc21YFI
+
+            if (trc21yfi) {
+                let p = new Promise((resolve, reject) =>  {
+                    return tomojs.tomoz.getTokenInformation(trc21yfi).then(data => {
+                        let totalSupply = data.totalSupply
+                        return Stats.push({
+                            table: 'trc21tokens',
+                            name: 'YFI',
+                            address: trc21yfi,
                             value: totalSupply
                         }).then(() => resolve()).catch(() => resolve())
                     }).catch(e => reject(e))
