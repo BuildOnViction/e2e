@@ -14,8 +14,8 @@ describe('TomoMaster', () => {
     }
 
     describe('/GET site', () => {
-        it('it should GET site', (done) => {
-            let url = uri
+        let url = uri
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -27,8 +27,8 @@ describe('TomoMaster', () => {
     })
 
     describe('/GET masternodes', () => {
-        it('it should GET masternodes', (done) => {
-            let url = urljoin(uri, 'api/candidates/masternodes')
+        let url = urljoin(uri, 'api/candidates/masternodes')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -40,8 +40,8 @@ describe('TomoMaster', () => {
     })
 
     describe('/GET crawler status', () => {
-        it('it should GET crawler status', (done) => {
-            let url = urljoin(uri, '/api/candidates/crawlStatus')
+        let url = urljoin(uri, '/api/candidates/crawlStatus')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -54,8 +54,8 @@ describe('TomoMaster', () => {
     })
 
     describe('/GET slashedMNs', () => {
-        it('check number of slashedMNs', (done) => {
-            let url = urljoin(uri, '/api/candidates/slashedMNs')
+        let url = urljoin(uri, '/api/candidates/slashedMNs')
+        it(`GET ${url}`, (done) => {
             chai.request(url)
                 .get('/')
                 .end((err, res) => {
@@ -68,17 +68,17 @@ describe('TomoMaster', () => {
     })
 
     describe('/GET isMasternode', () => {
-        it('it should be masternode', (done) => {
-            ((config.tomomaster || {}).masternodes || []).forEach((address) => {
-                let url = urljoin(uri, '/api/candidates/', address, 'isMasternode')
+        ((config.tomomaster || {}).masternodes || []).forEach((address) => {
+            let url = urljoin(uri, '/api/candidates/', address, 'isMasternode')
+            it(`GET ${url}`, (done) => {
                 chai.request(url)
                     .get('/')
                     .end((err, res) => {
                         res.should.have.status(200)
                         res.body.should.be.equal(1, `${address} it is not a masternode`)
                     })
+                done()
             })
-            done()
         })
     })
 
