@@ -35,6 +35,9 @@
     "tomochain": {
         "uri": "https://tomochain.com"
     },
+    "tomorelayer": {
+        "uri": "https://relayer.tomochain.com"
+    },
     "tomodocs": {
         "uri": "https://docs.tomochain.com"
     },
