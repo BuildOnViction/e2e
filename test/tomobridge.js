@@ -325,7 +325,7 @@ describe('TomoBridge', () => {
                         table: 'ethUnlockWallet02',
                         name: 'ETH',
                         address: address,
-                        value: balance0.2
+                        value: balance
                     }).then(() => done()).catch(() => done())
                 })
         })
