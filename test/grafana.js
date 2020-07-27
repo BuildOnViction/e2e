@@ -23,7 +23,7 @@ describe('Grafana', () => {
         }
         it(`GET ${url}`, (done) => {
             chai.request(url)
-                .get('/')
+                .get('')
                 .set('Authorization', `Bearer ${(process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))}`)
                 .query(q)
                 .end((err, res) => {
@@ -51,7 +51,7 @@ describe('Grafana', () => {
         }
         it(`GET ${url}`, (done) => {
             chai.request(url)
-                .get('/')
+                .get('')
                 .set('Authorization', `Bearer ${(process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))}`)
                 .query(q)
                 .end((err, res) => {
@@ -79,7 +79,7 @@ describe('Grafana', () => {
         }
         it(`GET ${url}`, (done) => {
             chai.request(url)
-                .get('/')
+                .get('')
                 .set('Authorization', `Bearer ${(process.env.GRAFANA_API_KEY || config.get('grafana.apiKey'))}`)
                 .query(q)
                 .end((err, res) => {
