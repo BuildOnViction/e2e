@@ -13,7 +13,7 @@ let pairs = []
 
 chai.use(chaiHttp)
 describe('MM', () => {
-    if (!uri) {
+    if (!uri || process.env.NODE_ENV !== 'mainnet') {
         return
     }
 
