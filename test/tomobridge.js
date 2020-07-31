@@ -167,6 +167,44 @@ describe('TomoBridge', () => {
         })
     })
 
+    describe('/GET deposit ERC20 token txs', () => {
+        let url = urljoin(uri, 'api/transactions/getWrapTxs')
+        let erc20Tokens = config.tomobridge.erc20.tokens
+        erc20Tokens.forEach((t) => {
+            it(`GET ${url}?coin=${t.symbol.toLowerCase()}`, (done) => {
+                let query = {
+                    coin: t.symbol.toLowerCase(),
+                    limit: 8,
+                    page: 1
+                }
+                chai.request(url)
+                    .get('/')
+                    .query(query)
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let txs = res.body.Data
+                        Stats.push({
+                            table: 'txdeposit',
+                            name: t.symbol,
+                            address: t.symbol,
+                            value: res.body.Total
+                        })
+                        txs.forEach(tx => {
+                            let inTx = tx.InTx
+                            let outTx = tx.OutTx
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
+                            if (delay > 1500) {
+                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} ${t.symbol} deposit ${inTx.Hash} delay ${delay}`)
+                            }
+                        })
+                        done()
+                    })
+            })
+        })
+    })
+
+
     describe('/GET withdraw BTC txs', () => {
         let url = urljoin(uri, 'api/transactions/getUnwrapTxs')
         it(`GET ${url}`, (done) => {
@@ -303,6 +341,43 @@ describe('TomoBridge', () => {
                     })
                     done()
                 })
+        })
+    })
+
+    describe('/GET withdraw ERC20 tokens txs', () => {
+        let url = urljoin(uri, 'api/transactions/getUnwrapTxs')
+        let erc20Tokens = config.tomobridge.erc20.tokens
+        erc20Tokens.forEach((t) => {
+            it(`GET ${url}?coin=${t.symbol.toLowerCase()}`, (done) => {
+                let query = {
+                    coin: t.symbol.toLowerCase(),
+                    limit: 10,
+                    page: 1
+                }
+                chai.request(url)
+                    .get('/')
+                    .query(query)
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let txs = res.body.Data
+                        Stats.push({
+                            table: 'txwithdraw',
+                            name: t.symbol,
+                            address: t.symbol,
+                            value: res.body.Total
+                        })
+                        txs.forEach(tx => {
+                            let inTx = tx.InTx
+                            let outTx = tx.OutTx
+                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
+                            if (delay > 1500) {
+                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} ${t.symbol} withdraw ${inTx.Hash} delay ${delay} seconds`)
+                            }
+                        })
+                        done()
+                    })
+            })
         })
     })
 
@@ -540,6 +615,49 @@ describe('TomoBridge', () => {
             }
             
             Promise.all(map).then(() => done()).catch(() => done())
+        })
+    })
+
+    describe('/GET erc20 locked balance', () => {
+        let erc20Tokens = config.tomobridge.erc20.tokens
+        let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
+        erc20Tokens.forEach((t) => {
+            it(`${t.symbol} ${t.erc20Address} locked balance`, (done) => {
+                let url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${t.erc20Address}&address=${t.trc21Address}&tag=latest&apikey=${apiKey}`
+                chai.request(url)
+                    .get('/')
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
+                        Stats.push({
+                            table: 'coins',
+                            name: t.symbol,
+                            address: t.trc21Address,
+                            value: balance
+                        })
+                        done()
+                    })
+            })
+        })
+    })
+
+    describe('/GET erc20 total supply', () => {
+        let erc20Tokens = config.tomobridge.erc20.tokens
+        let tomojs = new TomoJS('https://rpc.tomochain.com')
+        erc20Tokens.forEach((t) => {
+            it(`${t.symbol} ${t.trc21Address} total supply`, (done) => {
+                tomojs.tomoz.getTokenInformation(t.trc21Address).then(data => {
+                    let totalSupply = data.totalSupply
+                    Stats.push({
+                        table: 'trc21tokens',
+                        name: t.symbol,
+                        address: t.trc21Address,
+                        value: totalSupply
+                    })
+                })
+                done()
+            })
         })
     })
 })
