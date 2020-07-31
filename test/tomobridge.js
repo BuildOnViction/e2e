@@ -623,7 +623,7 @@ describe('TomoBridge', () => {
         let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
         erc20Tokens.forEach((t) => {
             it(`${t.symbol} ${t.erc20Address} locked balance`, (done) => {
-                let url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${t.erc20Address}&address=${t.trc21Address}&tag=latest&apikey=${apiKey}`
+                let url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${t.erc20Address}&address=${config.tomobridge.erc20.lockedAddress}&tag=latest&apikey=${apiKey}`
                 chai.request(url)
                     .get('/')
                     .end((err, res) => {
