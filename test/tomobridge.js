@@ -195,7 +195,7 @@ describe('TomoBridge', () => {
                             let outTx = tx.OutTx
                             let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
-                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} ${t.symbol} deposit ${inTx.Hash} delay ${delay}`)
+                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} deposit ${inTx.Hash} delay ${delay}`)
                             }
                         })
                         done()
@@ -372,7 +372,7 @@ describe('TomoBridge', () => {
                             let outTx = tx.OutTx
                             let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
-                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} ${t.symbol} withdraw ${inTx.Hash} delay ${delay} seconds`)
+                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} withdraw ${inTx.Hash} delay ${delay} seconds`)
                             }
                         })
                         done()
