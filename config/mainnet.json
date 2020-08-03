@@ -35,11 +35,13 @@
             "lockedAddress": "0x36f4b7a8d3d9975ae4c00ad1b699cb0f6dc20939",
             "tokens": [{
                 "symbol": "VNDC",
+                "decimals": 0,
                 "trc21Address": "0xc43a2df23dafacb9106ab239896599b705e2e67e",
                 "erc20Address": "0x1f3f677ecc58f6a1f9e2cf410df4776a8546b5de"
             },
             {
                 "symbol": "FTT",
+                "decimals": 18,
                 "trc21Address": "0x33fa3c0c714638f12339f85dae89c42042a2d9af",
                 "erc20Address": "0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9"
             }

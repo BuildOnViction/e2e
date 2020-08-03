@@ -629,7 +629,7 @@ describe('TomoBridge', () => {
                     .end((err, res) => {
                         res.should.have.status(200)
                         res.should.be.json
-                        let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
+                        let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(Math.pow(10, t.decimals)).toString(10))
                         Stats.push({
                             table: 'coins',
                             name: t.symbol,
