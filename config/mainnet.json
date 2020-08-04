@@ -82,7 +82,10 @@
             "0x830a292f8b34b6106dff048fff9cf90b7f99e82a", // liq TOMO/BTC
             "0x00db7f3f1b87b056b38b978ea80991865af8c3e0", // liq ETH/USDT
             "0x11efcd8b28815615d338985c661b69f78c3a31ab", // liq BTC/USDT
-            "0x3b89FAD59c2CFEE70D5DA0643278f92a2e82b565" // liq TOMO/USDT
+            "0x3b89FAD59c2CFEE70D5DA0643278f92a2e82b565", // liq TOMO/USDT
+            "0x3D71D6d51434c43fF8De9CE0e45137835Ac05C07", // vol VNDC/TOMO
+            "0x2ed4b581A0c50a24B56BAEaad964a8856A10403a", // vol FTT/USDT
+            "0x8a0089f895ca4826ff7f3e7ed9066ee84f565d14" // vol YFI/USDT
         ],
         "duration": 1000
     },
