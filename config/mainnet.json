@@ -44,9 +44,14 @@
                 "decimals": 18,
                 "trc21Address": "0x33fa3c0c714638f12339f85dae89c42042a2d9af",
                 "erc20Address": "0x50d1c9771902476076ecfc8b2a83ad6b9355a4c9"
+            },
+            {
+                "symbol": "DEC",
+                "decimals": 18,
+                "trc21Address": "0xfeb9ae1ccec15cd8ccd37894ef3e24ec5414e781",
+                "erc20Address": "0x30f271c9e86d2b7d00a6376cd96a1cfbd5f0b9b3"
             }
             ]
-
         }
     },
     "tomowallet": {
@@ -85,7 +90,8 @@
             "0x3b89FAD59c2CFEE70D5DA0643278f92a2e82b565", // liq TOMO/USDT
             "0x3D71D6d51434c43fF8De9CE0e45137835Ac05C07", // vol VNDC/TOMO
             "0x2ed4b581A0c50a24B56BAEaad964a8856A10403a", // vol FTT/USDT
-            "0x8a0089f895ca4826ff7f3e7ed9066ee84f565d14" // vol YFI/USDT
+            "0x8a0089f895ca4826ff7f3e7ed9066ee84f565d14", // vol YFI/USDT
+            "0x2Ca052d375aDA9d6B18b69AD3a86efc12c46Ff0D" // vol DEC/USDT
         ],
         "duration": 1000
     },
