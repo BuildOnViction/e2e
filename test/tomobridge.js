@@ -336,7 +336,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500) {
-                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} YFI withdraw ${inTx.Hash} delay ${delay} seconds`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} YFI withdraw ${inTx.Hash} delay ${delay} seconds`)
                         }
                     })
                     done()
