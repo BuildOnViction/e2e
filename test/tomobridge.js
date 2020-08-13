@@ -12,9 +12,9 @@ let moment = require('moment')
 
 chai.use(chaiHttp)
 describe('TomoBridge', () => {
-    if (!uri) {
+//    if (!uri) {
         return
-    }
+//    }
 
     describe('/GET site', () => {
         it('it should GET site', (done) => {
