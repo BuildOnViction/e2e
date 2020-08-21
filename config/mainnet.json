@@ -56,6 +56,12 @@
                 "decimals": 6,
                 "trc21Address": "0xc01643ac912b6a8ffc50cf8c1390934a6142bc91",
                 "erc20Address": "0x476c5e26a75bd202a9683ffd34359c0cc15be0ff"
+            },
+            {
+                "symbol": "DXD",
+                "decimals": 18,
+                "trc21Address": "0xB3AcEF61C7926002B62f45F7C352fF561B19ad52",
+                "erc20Address": "0xa1d65E8fB6e87b60FECCBc582F7f97804B725521"
             }
             ]
         }
@@ -99,7 +105,8 @@
             "0x2ed4b581A0c50a24B56BAEaad964a8856A10403a", // vol FTT/USDT
             "0x8a0089f895ca4826ff7f3e7ed9066ee84f565d14", // vol YFI/USDT
             "0x2Ca052d375aDA9d6B18b69AD3a86efc12c46Ff0D", // vol DEC/USDT
-            "0x10B417281d8D006810076843D71c87DDC2d7D241" // vol SRM/USDT
+            "0x10B417281d8D006810076843D71c87DDC2d7D241", // vol SRM/USDT
+            "0xDB2cE8b9bE63157302E95270a9579dda67a75B06" // vol DXD/USDT
         ],
         "duration": 1000
     },
