@@ -111,7 +111,8 @@
             "0x8a0089f895ca4826ff7f3e7ed9066ee84f565d14", // vol YFI/USDT
             "0x2Ca052d375aDA9d6B18b69AD3a86efc12c46Ff0D", // vol DEC/USDT
             "0x10B417281d8D006810076843D71c87DDC2d7D241", // vol SRM/USDT
-            "0xDB2cE8b9bE63157302E95270a9579dda67a75B06" // vol DXD/USDT
+            "0xDB2cE8b9bE63157302E95270a9579dda67a75B06", // vol DXD/USDT
+            "0x99Cf832dC5455bbccD3e175B42F567B99a504021" // vol MTA/USDT
         ],
         "duration": 1000
     },
