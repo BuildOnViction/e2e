@@ -124,6 +124,7 @@
         "duration": 1000
     },
     "dapps": [
+        "https://stats.tomochain.com",
         "https://maxbet.pigfarm.io",
         "https://numberhunt.web.app",
         "https://bugsmaze.web.app",
