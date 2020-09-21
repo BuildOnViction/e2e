@@ -57,7 +57,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 3000) {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 8).toString(10)} BTC deposit ${inTx.Hash} delay ${delay}`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 8).toString(10)} BTC deposit ${inTx.Hash} delay ${delay}`)
                         }
                     })
                     done()
@@ -91,7 +91,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500) {
-                            // expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8), `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} ETH deposit ${inTx.Hash} delay ${delay}`)
+                            expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8), `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} ETH deposit ${inTx.Hash} delay ${delay}`)
                         }
                     })
                     done()
@@ -125,7 +125,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500) {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} USDT deposit ${inTx.Hash} delay ${delay}`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} USDT deposit ${inTx.Hash} delay ${delay}`)
                         }
                     })
                     done()
@@ -159,7 +159,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500) {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} YFI deposit ${inTx.Hash} delay ${delay}`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} YFI deposit ${inTx.Hash} delay ${delay}`)
                         }
                     })
                     done()
@@ -195,7 +195,7 @@ describe('TomoBridge', () => {
                             let outTx = tx.OutTx
                             let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
-                                // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} deposit ${inTx.Hash} delay ${delay}`)
+                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} deposit ${inTx.Hash} delay ${delay}`)
                             }
                         })
                         done()
@@ -231,7 +231,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 3000) {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 8).toString(10)} BTC withdraw ${inTx.Hash} delay ${delay}`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 8).toString(10)} BTC withdraw ${inTx.Hash} delay ${delay}`)
                         }
                     })
                     done()
@@ -266,7 +266,7 @@ describe('TomoBridge', () => {
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500
                                 && inTx.Hash != '0x28e8728e391d78a28d293a0762ff7c77ff4186fbc193e5b960695d5dcb5c0ded') {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} ETH withdraw ${inTx.Hash} delay ${delay} seconds`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} ETH withdraw ${inTx.Hash} delay ${delay} seconds`)
                         }
                     })
                     done()
@@ -302,7 +302,7 @@ describe('TomoBridge', () => {
                         if (delay > 1500 
                             && inTx.Hash != '0x00e04be5d1085c4839cc0947a8f45e591f83a5e1f2373686f0b7a19edd70509b'
                             && inTx.Hash != '0x728b0d698fe50514196f175137c63bff4c29d45c8f4af6f10910067f56f493a7') {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} USDT withdraw ${inTx.Hash} delay ${delay} seconds`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 6).toString(10)} USDT withdraw ${inTx.Hash} delay ${delay} seconds`)
                         }
                     })
                     done()
@@ -336,7 +336,7 @@ describe('TomoBridge', () => {
                         let outTx = tx.OutTx
                         let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                         if (delay > 1500) {
-                            // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} YFI withdraw ${inTx.Hash} delay ${delay} seconds`)
+                            expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(10 ** 18).toString(10)} YFI withdraw ${inTx.Hash} delay ${delay} seconds`)
                         }
                     })
                     done()
@@ -372,7 +372,7 @@ describe('TomoBridge', () => {
                             let outTx = tx.OutTx
                             let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
                             if (delay > 1500) {
-                                // expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} withdraw ${inTx.Hash} delay ${delay} seconds`)
+                                expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8),`Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} withdraw ${inTx.Hash} delay ${delay} seconds`)
                             }
                         })
                         done()
