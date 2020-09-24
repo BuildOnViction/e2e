@@ -21,7 +21,7 @@
     "tomoe": {
         "uri": "https://tomoe.tomochain.com",
         "ethUnlockWallet01": "0xcb696C01fEda092197DCDCA204bCC0490E9e82f6",
-        "ethUnlockWallet02": "0xcb696C01fEda092197DCDCA204bCC0490E9e82f6"
+        "ethUnlockWallet02": "0x0590a235e01Cb21BffAbC6A3Fa6d735FA61C6d9f"
     },
     "tomobridge": {
         "uri": "https://bridge.tomochain.com",
