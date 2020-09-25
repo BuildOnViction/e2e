@@ -4,7 +4,7 @@ let should = chai.should()
 let expect = chai.expect
 let config = require('config')
 let urljoin = require('url-join')
-let uri = (config.tomobridge || {}).uri
+let uri = (config.tomoe || {}).uri
 let BigNumber = require('bignumber.js')
 let Stats = require('../stats/tomobridge')
 let TomoJS = require('tomojs')
@@ -31,81 +31,71 @@ describe('TOMOE', () => {
         })
     })
 
-    /*
-    describe('/GET deposit ERC20 token txs', () => {
-        let url = urljoin(uri, 'api/transactions/getWrapTxs')
-        let erc20Tokens = config.tomobridge.erc20.tokens
-        erc20Tokens.forEach((t) => {
-            it(`GET ${url}?coin=${t.symbol.toLowerCase()}`, (done) => {
-                let query = {
-                    coin: t.symbol.toLowerCase(),
-                    limit: 8,
-                    page: 1
-                }
-                chai.request(url)
-                    .get('/')
-                    .query(query)
-                    .end((err, res) => {
-                        res.should.have.status(200)
-                        res.should.be.json
-                        let txs = res.body.Data
-                        Stats.push({
-                            table: 'txdeposit',
-                            name: t.symbol,
-                            address: t.symbol,
-                            value: res.body.Total
-                        })
-                        txs.forEach(tx => {
-                            let inTx = tx.InTx
-                            let outTx = tx.OutTx
-                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
-                            if (delay > 1500) {
-                                expect(inTx.Amount).to.equal(outTx.Amount, `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} deposit ${inTx.Hash} delay ${delay}`)
-                            }
-                        })
-                        done()
+    describe('/GET TOMOE to TOMO txs', () => {
+        let url = urljoin(uri, 'api/transactions/getSwapTxs?type=withdraw')
+        it(`GET ${url}`, (done) => {
+            let query = {
+                limit: 8,
+                page: 1
+            }
+            chai.request(url)
+                .get('/')
+                .query(query)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let txs = res.body.Data
+                    Stats.push({
+                        table: 'txburntomoe',
+                        name: 'TOMOE',
+                        address: 'TOMOE',
+                        value: res.body.Total
                     })
-            })
+                    txs.forEach(tx => {
+                        let inTx = tx.InTx
+                        let outTx = tx.OutTx
+                        let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
+                        if (delay > 1500) {
+                            expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8), `Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, 18)).toString(10)} TOMOE to TOMO ${inTx.Hash} delay ${delay}`)
+                        }
+                    })
+                    done()
+                })
         })
     })
 
-    describe('/GET withdraw ERC20 tokens txs', () => {
-        let url = urljoin(uri, 'api/transactions/getUnwrapTxs')
-        let erc20Tokens = config.tomobridge.erc20.tokens
-        erc20Tokens.forEach((t) => {
-            it(`GET ${url}?coin=${t.symbol.toLowerCase()}`, (done) => {
-                let query = {
-                    coin: t.symbol.toLowerCase(),
-                    limit: 10,
-                    page: 1
-                }
-                chai.request(url)
-                    .get('/')
-                    .query(query)
-                    .end((err, res) => {
-                        res.should.have.status(200)
-                        res.should.be.json
-                        let txs = res.body.Data
-                        Stats.push({
-                            table: 'txwithdraw',
-                            name: t.symbol,
-                            address: t.symbol,
-                            value: res.body.Total
-                        })
-                        txs.forEach(tx => {
-                            let inTx = tx.InTx
-                            let outTx = tx.OutTx
-                            let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
-                            if (delay > 1500) {
-                                expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8),`Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, t.decimals)).toString(10)} ${t.symbol} withdraw ${inTx.Hash} delay ${delay} seconds`)
-                            }
-                        })
-                        done()
+    describe('/GET TOMO to TOMOE txs', () => {
+        let url = urljoin(uri, 'api/transactions/getSwapTxs?type=deposit')
+        it(`GET ${url}`, (done) => {
+            let query = {
+                limit: 10,
+                page: 1
+            }
+            chai.request(url)
+                .get('/')
+                .query(query)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    let txs = res.body.Data
+                    Stats.push({
+                        table: 'txminttomoe',
+                        name: 'TOMOE',
+                        address: 'TOMOE',
+                        value: res.body.Total
                     })
-            })
+                    txs.forEach(tx => {
+                        let inTx = tx.InTx
+                        let outTx = tx.OutTx
+                        let delay = moment().diff(moment.unix(tx.CreatedAt), 'seconds')
+                        if (delay > 1500) {
+                            expect(new BigNumber(inTx.Amount).dividedBy(10 ** 18).toFixed(8)).to.equal(new BigNumber(outTx.Amount).dividedBy(10 ** 18).toFixed(8),`Stuck ${new BigNumber(inTx.Amount).dividedBy(Math.pow(10, 18)).toString(10)} TOMO to TOMOE ${inTx.Hash} delay ${delay} seconds`)
+                        }
+                    })
+                    done()
+                })
         })
     })
-    */
 
     describe('/GET eth unlock wallet 02 balance', () => {
         let address = config.tomoe.ethUnlockWallet02
