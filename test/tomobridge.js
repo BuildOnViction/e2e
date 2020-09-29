@@ -395,7 +395,7 @@ describe('TomoBridge', () => {
                     res.should.have.status(200)
                     res.should.be.json
                     let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
-                    expect(balance).to.above(0.2, `Not enough balance for ethUnlockWallet02 ${address}`)
+                    expect(balance).to.above(1, `Not enough balance for ethUnlockWallet02 ${address}`)
                     return Stats.push({
                         table: 'ethUnlockWallet02',
                         name: 'ETH',
@@ -420,7 +420,7 @@ describe('TomoBridge', () => {
                     res.should.have.status(200)
                     res.should.be.json
                     let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
-                    expect(balance).to.above(0.2, `Not enough balance for ethUnlockWallet01 ${address}`)
+                    expect(balance).to.above(1, `Not enough balance for ethUnlockWallet01 ${address}`)
                     return Stats.push({
                         table: 'ethUnlockWallet01',
                         name: 'ETH',
@@ -445,7 +445,7 @@ describe('TomoBridge', () => {
                     res.should.have.status(200)
                     res.should.be.json
                     let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
-                    expect(balance).to.above(0.2, 'Not enough balance for wallet fee')
+                    expect(balance).to.above(1, 'Not enough balance for wallet fee')
                     return Stats.push({
                         table: 'feewallets',
                         name: 'ETH',
