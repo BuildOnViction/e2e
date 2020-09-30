@@ -135,8 +135,10 @@
         ],
         "duration": 1000
     },
+    "apis": [
+        "https://snapshot.luaswap.org/api/0xB1f66997A5760428D3a87D68b90BfE0aE64121cC/proposals"
+    ],
     "dapps": [
-        "https://snapshot.luaswap.org/api/0xB1f66997A5760428D3a87D68b90BfE0aE64121cC/proposals",
         "https://snapshot.luaswap.org",
         "https://stats.tomochain.com",
         "https://maxbet.pigfarm.io",
