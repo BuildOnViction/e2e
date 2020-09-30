@@ -79,6 +79,12 @@
                 "decimals": 18,
                 "trc21Address": "0xA7551BA0d52C763fb6f8866DE63827aA593f20Bc",
                 "erc20Address": "0x9b53e429b0badd98ef7f01f03702986c516a5715"
+            },
+            {
+                "symbol": "FRONT",
+                "decimals": 18,
+                "trc21Address": "0x661C18Ff558f36aA94B9611EEb9Af53424C400e4",
+                "erc20Address": "0xf8C3527CC04340b208C854E985240c02F7B7793f"
             }
             ]
         }
@@ -124,7 +130,8 @@
             "0x10B417281d8D006810076843D71c87DDC2d7D241", // vol SRM/USDT
             "0xDB2cE8b9bE63157302E95270a9579dda67a75B06", // vol DXD/USDT
             "0x99Cf832dC5455bbccD3e175B42F567B99a504021", // vol MTA/USDT
-            "0x3C1458684f326d3B3e21FDED201Ec3F5E58ed5f7" // vol HY/USDT
+            "0x3C1458684f326d3B3e21FDED201Ec3F5E58ed5f7", // vol HY/USDT
+            "0x949e78ee84ad9a541cdc09b4cd60aa59caa3973b" // vol FRONT/USDT
         ],
         "duration": 1000
     },
