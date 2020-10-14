@@ -11,11 +11,11 @@ afterEach(async function() {
         table: 'statuses',
         product: product,
         env: env,
-        status: this.currentTest.state,
+        status: (this.currentTest || {}).state,
         value: 1
     })
 
-    if (this.currentTest.state === 'failed') {
+    if ((this.currentTest || {}).state === 'failed') {
         let slackUri = process.env.SLACK_URI
         let p = new Promise((resolve, reject) => {
             let url = urljoin(slackUri)
