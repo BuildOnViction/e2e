@@ -85,6 +85,12 @@
                 "decimals": 18,
                 "trc21Address": "0x661C18Ff558f36aA94B9611EEb9Af53424C400e4",
                 "erc20Address": "0xf8C3527CC04340b208C854E985240c02F7B7793f"
+            },
+            {
+                "symbol": "HY",
+                "decimals": 18,
+                "trc21Address": "0x3c1458684f326d3b3e21fded201ec3f5e58ed5f7",
+                "erc20Address": "0x9b53e429b0badd98ef7f01f03702986c516a5715"
             }
             ]
         }
