@@ -131,7 +131,8 @@
             "0xDB2cE8b9bE63157302E95270a9579dda67a75B06", // vol DXD/USDT
             "0x99Cf832dC5455bbccD3e175B42F567B99a504021", // vol MTA/USDT
             "0x3C1458684f326d3B3e21FDED201Ec3F5E58ed5f7", // vol HY/USDT
-            "0x949e78ee84ad9a541cdc09b4cd60aa59caa3973b" // vol FRONT/USDT
+            "0x949e78ee84ad9a541cdc09b4cd60aa59caa3973b", // vol FRONT/USDT
+            "0x3c1458684f326d3b3e21fded201ec3f5e58ed5f7" // vol HY/USDT
         ],
         "duration": 1000
     },
