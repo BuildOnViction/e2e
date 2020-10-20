@@ -292,6 +292,7 @@ describe('TomoDex', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
+                    expect(res.body.data.activeUser).to.above(0, 'Stats API issue, 0  users in 7 days')
                     Stats.saveTotalUsers({
                         pair: 'all',
                         duration: '7d',

@@ -85,6 +85,12 @@
                 "decimals": 18,
                 "trc21Address": "0x661C18Ff558f36aA94B9611EEb9Af53424C400e4",
                 "erc20Address": "0xf8C3527CC04340b208C854E985240c02F7B7793f"
+            },
+            {
+                "symbol": "PAZZI",
+                "decimals": 18,
+                "trc21Address": "0x1bCC347956D04752Fcb9b416392BF8666e2d6a8C",
+                "erc20Address": "0xf2D4A5dd017d78289C404DE98c37cE245e417C7f"
             }
             ]
         }
@@ -132,7 +138,9 @@
             "0x99Cf832dC5455bbccD3e175B42F567B99a504021", // vol MTA/USDT
             "0x3C1458684f326d3B3e21FDED201Ec3F5E58ed5f7", // vol HY/USDT
             "0x949e78ee84ad9a541cdc09b4cd60aa59caa3973b", // vol FRONT/USDT
-            "0x3c1458684f326d3b3e21fded201ec3f5e58ed5f7" // vol HY/USDT
+            "0x3c1458684f326d3b3e21fded201ec3f5e58ed5f7", // vol HY/USDT
+            "0xC5A02f52dc5157D3D313639f928ad43a20b874AB", // vol PAZZI/TOMO
+            "0xE204db6282AD9a0423139CD76987e48365e6ce6a" // vol PAZZI/USDT
         ],
         "duration": 1000
     },
