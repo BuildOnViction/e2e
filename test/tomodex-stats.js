@@ -319,7 +319,8 @@ describe('TomoDEX-Stats', () => {
                     env: process.env.NODE_ENV,
                     value: allTotal
                 })
-            }).catch(() => done())
+            })
+            done()
         })
     })
 
