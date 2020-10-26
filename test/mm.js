@@ -1,4 +1,5 @@
 let chai = require('chai')
+let moment = require('moment')
 let chaiHttp = require('chai-http')
 let should = chai.should()
 let expect = chai.expect
