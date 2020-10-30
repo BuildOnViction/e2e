@@ -15,9 +15,6 @@
     "tomob": {
         "uri": "https://tomob.tomochain.com"
     },
-    "maka": {
-        "uri": "https://maka.co"
-    },
     "tomoe": {
         "uri": "https://tomoe.tomochain.com",
         "ethUnlockWallet01": "0xcb696C01fEda092197DCDCA204bCC0490E9e82f6",
