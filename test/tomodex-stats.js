@@ -258,7 +258,7 @@ describe('TomoDEX-Stats', () => {
                             let trades = res.body.data.trades
                             let total = res.body.data.total
                             allTotal = allTotal + parseInt(total)
-                            expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
+                            // expect(moment().diff(trades[0].createdAt, 'seconds')).to.be.below(config.tomodex['duration'], `${p.baseTokenSymbol}/${p.quoteTokenSymbol} no new trades`)
                             Stats.saveTotalTrades({
                                 pair: p.baseTokenSymbol + p.quoteTokenSymbol,
                                 duration: 'spotall',
