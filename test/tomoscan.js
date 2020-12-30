@@ -96,4 +96,18 @@ describe('TomoScan', () => {
                 })
         })
     })
+
+    describe('/GET orders', () => {
+        let txUrl = urljoin(uri, 'api/orders?page=1&limit=20')
+        it(`GET ${txUrl}`, (done) => {
+            let url = urljoin(uri, 'api/orders?page=1&limit=20')
+            chai.request(url)
+                .get('')
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.should.be.json
+                    done()
+                })
+        })
+    })
 })
