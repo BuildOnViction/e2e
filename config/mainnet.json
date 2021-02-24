@@ -23,7 +23,7 @@
     "tomobridge": {
         "uri": "https://bridge.tomochain.com",
         "usdtFeeWallet": "0x2a990cA68B8C9C167b6Db5685D673022BBBeB65B",
-        "ethUnlockWallet01": "0x90e079b6c7a1272b4588c631add1627337f8ce83",
+        // "ethUnlockWallet01": "0x90e079b6c7a1272b4588c631add1627337f8ce83",
         "ethUnlockWallet02": "0xCb4c42F6F2ee6EDB3C726f6ccDD86e38181E58BF",
         "lockedBTC": "3EdXXjt9LZw6ZrURGKGZzgXDyhCEggUFcG",
         "lockedETH": "0x36f4b7a8d3d9975ae4c00ad1b699cb0f6dc20939",
