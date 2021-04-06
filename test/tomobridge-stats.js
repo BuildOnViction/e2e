@@ -366,28 +366,41 @@ describe('TomoBridge-Stats', () => {
         })
     })
 
-    describe('/GET eth unlock wallet 02 balance', () => {
+    /**
+     * Steps
+     * 1. Get mint ETH total supply on Tomochain - A
+     * 2. Get ETH balance on ETH - B
+     * 3. B - A < 1 --> warning
+     */
+     describe('/GET eth unlock wallet 02 balance', () => {
         let address = config.tomobridge.ethUnlockWallet02
         let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
-        let url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
-        it(`GET ${url}`, (done) => {
-            if (!address) {
-                return done()
-            }
-            chai.request(url)
-                .get('/')
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
-                    expect(balance).to.above(1, `Not enough balance for ethUnlockWallet02 ${address}`)
-                    return Stats.push({
-                        table: 'ethUnlockWallet02',
-                        name: 'ETH',
-                        address: address,
-                        value: balance
-                    }).then(() => done()).catch(() => done())
-                })
+        let tomojs = new TomoJS('https://rpc.tomochain.com')
+
+        tomojs.tomoz.getTokenInformation(config.tomobridge.trc21ETH).then(data => {
+            let totalMint = parseFloat((new BigNumber(data.totalSupply)).dividedBy(1e18).toString(10))
+            let url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`
+            it(`GET ${url}`, (done) => {
+                if (!address) {
+                    return done()
+                }
+                chai.request(url)
+                    .get('/')
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.should.be.json
+                        let balance = parseFloat((new BigNumber(res.body.result)).dividedBy(1e18).toString(10))
+                        expect(balance - totalMint).to.above(1, `Not enough balance for ethUnlockWallet01 ${address}`)
+                        return Stats.push({
+                            table: 'ethUnlockWallet01',
+                            name: 'ETH',
+                            address: address,
+                            value: balance
+                        }).then(() => done()).catch(() => done())
+                    })
+            })
+        }).catch((err) => {
+            done(err)
         })
     })
 
