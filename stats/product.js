@@ -11,6 +11,8 @@ const push = ({ table, env, product, status, value }) => {
         let data = `
             ${table},product=${product},env=${env},status=${status} value=${value}
             `
+        console.log(`${table},product=${product},env=${env},status=${status} value=${value}`)
+
         let options = {
             method: 'POST',
             url: url,
