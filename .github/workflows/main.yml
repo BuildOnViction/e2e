@@ -14,4 +14,13 @@ jobs:
         with:
           node-version: '10'
       - run: npm install
-      - run: npm test
+      - shell: bash
+        env:
+          ETHERSCAN_APIKEY: ${{ secrets.ETHERSCAN_APIKEY }}
+          GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }}
+          SLACK_URI: ${{ secrets.SLACK_URI }}
+          STATS_PASSWORD: ${{ secrets.STATS_PASSWORD }}
+          STATS_USERNAME: ${{ secrets.STATS_USERNAME }}
+        run: |
+          npm test
+        
