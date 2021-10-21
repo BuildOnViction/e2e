@@ -4,7 +4,7 @@ const Stats = require('../stats/product')
 const path = require('path')
 
 afterEach(async function() {
-
+/*
     let product = path.basename(this.currentTest.file, '.js').toUpperCase()
     let env = (process.env.NODE_ENV || 'empty').toUpperCase()
     await Stats.push({
@@ -14,7 +14,7 @@ afterEach(async function() {
         status: (this.currentTest || {}).state,
         value: 1
     })
-
+*/
     if ((this.currentTest || {}).state === 'failed') {
         let slackUri = process.env.SLACK_URI
         let p = new Promise((resolve, reject) => {
