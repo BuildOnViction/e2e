@@ -1,13 +1,13 @@
-name: GitHub Actions Demo
-on: 
+name: TomoChain Monitor
+on:
   push:
     paths:
       - 'test/*'
       - 'stats/*'
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: '*/15 * * * *'
 jobs:
-  Explore-GitHub-Actions:
+  TomoChain-Monitor:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
