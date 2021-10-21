@@ -27,23 +27,4 @@ describe('TomoBridge', () => {
         })
     })
 
-    describe('/GET deposit BTC txs', () => {
-        let url = urljoin(uri, 'api/transactions/getWrapTxs')
-        it(`GET ${url}`, (done) => {
-            let query = {
-                coin: 'btc',
-                limit: 10,
-                page: 1
-            }
-            chai.request(url)
-                .get('/')
-                .query(query)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.should.be.json
-                    done()
-                })
-        })
-    })
-
 })
