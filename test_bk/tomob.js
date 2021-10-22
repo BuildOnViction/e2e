@@ -24,7 +24,7 @@ describe('TomoB', () => {
                 })
         })
     })
-
+/*
     describe('/GET deposit', () => {
         let url = urljoin(uri, '/api/deposit/monitor/status')
         it(`GET ${url}`, (done) => {
@@ -38,6 +38,7 @@ describe('TomoB', () => {
                 })
         })
     })
+*/
 
     describe('/GET withdraw', () => {
         let url = urljoin(uri, '/api/withdraw/monitor/status')
