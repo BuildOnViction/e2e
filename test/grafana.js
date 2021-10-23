@@ -29,7 +29,11 @@ describe('Grafana', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    let value = res.body.results[0].series[0].values[0][1]
+                    let value = 0
+                    try {
+                        value = ((res.body.results[0] || {}).series[0] || {}).values[0][1]
+                    } catch (e) { }                   }
+                    
                     Stats.saveRevenue({
                         address: address,
                         type: '24h',
@@ -57,7 +61,10 @@ describe('Grafana', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    let value = res.body.results[0].series[0].values[0][1]
+                    let value = 0
+                    try {
+                        value = ((res.body.results[0] || {}).series[0] || {}).values[0][1]
+                    } catch (e) { } 
                     Stats.saveRevenue({
                         address: address,
                         type: '7d',
@@ -85,7 +92,10 @@ describe('Grafana', () => {
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.should.be.json
-                    let value = res.body.results[0].series[0].values[0][1]
+                    let value = 0
+                    try {
+                        value = ((res.body.results[0] || {}).series[0] || {}).values[0][1]
+                    } catch (e) { } 
                     Stats.saveRevenue({
                         address: address,
                         type: '30d',
