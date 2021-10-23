@@ -32,7 +32,7 @@ describe('Grafana', () => {
                     let value = 0
                     try {
                         value = ((res.body.results[0] || {}).series[0] || {}).values[0][1]
-                    } catch (e) { }                   }
+                    } catch (e) { }
                     
                     Stats.saveRevenue({
                         address: address,
