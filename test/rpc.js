@@ -38,7 +38,7 @@ describe('TomoChain RPC', () => {
                         res.should.be.json
                         let timestamp = parseInt(res.body.result.timestamp, 16)
                         let delta = Math.floor(Date.now() / 1000) - timestamp
-                        expect(delta).to.below(120)
+                        expect(delta).to.below(300)
                         done()
                     })
             })
