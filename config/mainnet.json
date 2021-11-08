@@ -105,7 +105,8 @@
         "uri": "https://docs.tomochain.com"
     },
     "rpc": [ 
-        "https://rpc.tomochain.com"
+        "https://rpc.tomochain.com",
+        "https://rpc.testnet.tomochain.com"
     ],
     "tomodex": {
         "uri": "https://dex.tomochain.com",
