@@ -47,6 +47,7 @@ describe('TomoDex', () => {
         })
     })
 
+    /*
     describe('/WS orderbook', () => {
         it(`WS orderbook ${urljoin(uri, 'socket')}`, (done) => {
             let pair = pairs[0]
@@ -120,5 +121,6 @@ describe('TomoDex', () => {
             p.then(() => done()).catch(() => done())
         })
     })
+    */
 
 })
