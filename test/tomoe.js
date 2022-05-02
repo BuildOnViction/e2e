@@ -30,7 +30,7 @@ describe('TOMOE', () => {
                 })
         })
     })
-
+/*
     describe('/GET TOMOE to TOMO txs', () => {
         let url = urljoin(uri, 'api/transactions/getSwapTxs?type=withdraw')
         it(`GET ${url}`, (done) => {
@@ -96,7 +96,7 @@ describe('TOMOE', () => {
                 })
         })
     })
-
+*/
     describe('/GET eth unlock wallet 02 balance', () => {
         let address = config.tomoe.ethUnlockWallet02
         let apiKey = process.env.ETHERSCAN_APIKEY || config.etherscanApiKey
